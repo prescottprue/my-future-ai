@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Container, Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col } from 'reactstrap';
 
 export default class TutorialContainer extends React.Component {
 
   render () {
     let links = [
       { title: 'Set your goals', link: 'tutorial/goals' },
-      { title: 'Connect with others', link: 'tutorial/friends' },
+      { title: 'Connect with others', link: 'tutorial/connect' },
       { title: 'Enjoy the journey' },
     ]
     return (
-      <Container>
+      <div>
         <Row className="mt-1">
           <Col xs="12">
             <h1 className="text-xs-center">Tutorial</h1>
@@ -28,7 +28,7 @@ export default class TutorialContainer extends React.Component {
           );
         }) }
         <Link to="me"><Button className="float-xs-right my-1" outline color="primary">Skip tutorial</Button></Link>
-      </Container>
+      </div>
     );
   }
 }

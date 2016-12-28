@@ -19,10 +19,9 @@ export default class ListYourGoalsContainer extends React.Component {
         <Row className="mt-1">
           <Col xs="12">
             <ul>
-              <li>Buy a car</li>
-              <li>Find a new job</li>
-              <li>Help 100 people</li>
-              <li>Make a difference</li>
+              { this.props.goals.map((goal, index) => {
+                return <li key={ index }>{ goal.text }</li>;
+              }) }
             </ul>
           </Col>
         </Row>
