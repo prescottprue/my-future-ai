@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Container, Button, Row, Col, Card, CardBlock, CardTitle, CardSubtitle, CardText } from 'reactstrap';
 
 import PageHeading from '../components/PageHeading';
+import LinkedIcon from '../components/LinkedIcon';
 
 export default class TutorialConnectContainer extends React.Component {
   render () {
@@ -18,11 +19,8 @@ export default class TutorialConnectContainer extends React.Component {
         <Row className="mt-1">
         { main.map((item, index) => {
           return (
-            <Col key={ index } xs="6" className="text-xs-center" style={{ background: 'none' }}>
-              <img src="https://placehold.it/128x128" className="img-fluid" alt="Responsive image" />
-              <p>
-                <Link to={ item.link }>{ item.title }</Link>
-              </p>
+            <Col key={ index } xs="6">
+              <LinkedIcon link={ item.link } size="128x128"> { item.title }</LinkedIcon>
             </Col>
           );
         }) }

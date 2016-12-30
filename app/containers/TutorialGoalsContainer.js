@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { Container, Button, Row, Col } from 'reactstrap';
 
 import PageHeading from '../components/PageHeading';
+import LinkedIcon from '../components/LinkedIcon';
 
 export default class TutorialGoalsContainer extends React.Component {
 
@@ -24,11 +25,8 @@ export default class TutorialGoalsContainer extends React.Component {
         <Row className="mt-1">
         { main.map((item, index) => {
           return (
-            <Col key={ index } xs="6" className="text-xs-center" style={{ background: 'none' }}>
-              <img src="https://placehold.it/64x64" className="img-fluid" alt="Responsive image" />
-              <p>
-                { (item.link) ? <Link to={ item.link }>{ item.title }</Link> : item.title }
-              </p>
+            <Col key={ index } xs="6">
+              <LinkedIcon link={ item.link } size="64x64">{ item.title }</LinkedIcon>
             </Col>
           );
         }) }
@@ -37,11 +35,8 @@ export default class TutorialGoalsContainer extends React.Component {
         <Row>
         { other.map((item, index) => {
           return (
-            <Col key={ index } xs="6" className="text-xs-center mt-1" style={{ background: 'none' }}>
-              <img src="https://placehold.it/64x64" className="img-fluid" alt="Responsive image" />
-              <p>
-                { (item.link) ? <Link to={ item.link }>{ item.title }</Link> : item.title }
-              </p>
+            <Col key={ index } xs="6" className="mt-1">
+              <LinkedIcon link={ item.link } size="64x64">{ item.title }</LinkedIcon>
             </Col>
           );
         }) }

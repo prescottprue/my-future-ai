@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Button, Row, Col } from 'reactstrap';
 
+import LinkedIcon from '../components/LinkedIcon';
+
 export default class TutorialContainer extends React.Component {
 
   render () {
@@ -19,11 +21,8 @@ export default class TutorialContainer extends React.Component {
         </Row>
         { links.map((item, index) => {
           return (
-            <Row key={ index } className="my-1 text-xs-center" style={{ background: 'none' }}>
-              <img src="https://placehold.it/96x96" className="img-fluid" alt="Responsive image" />
-              <p className="lead">
-                { (item.link) ? <Link to={ item.link }>{ item.title }</Link> : item.title }
-              </p>
+            <Row key={ index }>
+              <LinkedIcon link={ item.link } size="96x96">{ item.title }</LinkedIcon>
             </Row>
           );
         }) }
