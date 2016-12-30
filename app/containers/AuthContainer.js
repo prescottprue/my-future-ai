@@ -15,9 +15,6 @@ export default class AuthContainer extends React.Component {
           <h3><small className="text-muted">Some fancy slogan</small></h3>
         </Row>
         <Row className="text-xs-center">
-          <p>Main success metric - % of Goals Achieved
-          <br/>
-          <small className="text-muted">Achieved goals / (goals with completion date passed + goals inactive for 1 month)</small></p>
           <p>Sign in with</p>
           <Col xs="6">
             <Link to="tutorial"><Button color="primary">Facebook</Button></Link>
@@ -30,3 +27,6 @@ export default class AuthContainer extends React.Component {
     );
   }
 }
+          // <p>Main success metric - % of Goals Achieved
+          // <br/>
+          // <small className="text-muted">Achieved goals / (goals with completion date passed + goals inactive for 1 month)</small></p>

@@ -16,7 +16,6 @@ export default class DashboardContainer extends React.Component {
           { this.props.goals.map((goal, index) => {
             return (
               <FormGroup key={ index } check>
-                <Button className="float-xs-right" outline color="primary">More</Button>
                 <Label check>
                   <Input type="checkbox" name="radio2" />{' '}
                   { goal.text }
@@ -27,15 +26,16 @@ export default class DashboardContainer extends React.Component {
             );
           }) }
         </FormGroup>
-        <Row>
-          <Col xs="12">
-            <Button className="float-xs-right my-1" outline color="primary">Achieved</Button>
-          </Col>
-        </Row>
       </div>
     );
   }
 }
+                // <Button className="float-xs-right" outline color="primary">More</Button>
+        // <Row>
+        //   <Col xs="12">
+        //     <Button className="float-xs-right my-1" outline color="primary">Achieved</Button>
+        //   </Col>
+        // </Row>
         // <Row>
         //   <Col xs="12">
         //     <h4>Your feed:</h4>
