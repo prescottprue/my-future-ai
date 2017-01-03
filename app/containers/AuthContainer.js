@@ -1,8 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router';
-import { Button, Container, Row, Col } from 'reactstrap';
+import React , { PropTypes as T } from 'react'
+import { Link } from 'react-router'
+import { Button, Container, Row, Col } from 'reactstrap'
+import AuthService from '../utils/AuthService'
+
+import { connect } from 'react-redux'
+@connect((store) => ({ auth: store.user.auth }))
 
 export default class AuthContainer extends React.Component {
+  googleLogin() {
+    this.props.auth.login({ connection: 'google-oauth2' })
+  }
+
+  facebookLogin() {
+    this.props.auth.login({ connection: 'facebook' })
+  }
 
   render () {
     return (
@@ -17,16 +28,13 @@ export default class AuthContainer extends React.Component {
         <Row className="text-xs-center">
           <p>Sign in with</p>
           <Col xs="6">
-            <Link to="tutorial"><Button color="primary">Facebook</Button></Link>
+            <Button color="primary" onClick={ this.facebookLogin.bind(this) }>Facebook</Button>
           </Col>
           <Col xs="6">
-            <Link to="tutorial"><Button color="danger">Google</Button></Link>
+            <Button color="danger" onClick={ this.googleLogin.bind(this) }>Google</Button>
           </Col>
         </Row>
       </Container>
     );
   }
 }
-          // <p>Main success metric - % of Goals Achieved
-          // <br/>
-          // <small className="text-muted">Achieved goals / (goals with completion date passed + goals inactive for 1 month)</small></p>

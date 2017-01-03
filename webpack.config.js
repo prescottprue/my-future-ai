@@ -6,6 +6,9 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
+	devServer: {
+    historyApiFallback: true
+  },
 	devtool: 'source-map',
 	entry: [
 		'./app/index.js'
