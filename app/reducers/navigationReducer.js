@@ -1,7 +1,6 @@
 export default function reducer(state = {
     links: [
-      { href: 'me', title: "Home" },
-      // { href: '/goals', title: "Goals" },
+      { href: '/', title: "Home" },
       { href: 'connections', title: "Connections" },
       { href: 'logout', title: "Sign out", action: true },
     ]

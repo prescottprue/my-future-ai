@@ -3,8 +3,8 @@ import { Link } from 'react-router'
 import { Button, Container, Row, Col } from 'reactstrap'
 import AuthService from '../utils/AuthService'
 
-import { firebaseConnect, helpers } from 'react-redux-firebase'
 import { connect } from 'react-redux'
+import { firebaseConnect, helpers } from 'react-redux-firebase'
 
 @firebaseConnect()
 @connect(({ firebase }) => ({
