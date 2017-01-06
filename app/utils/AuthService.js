@@ -6,21 +6,16 @@ export default class AuthService {
     this.auth0 = new Auth0({
       clientID: clientId,
       domain: domain,
-      responseType: 'token'
+      responseType: 'token',
+      callbackUrl: window.location.href
     })
 
     this.login = this.login.bind(this)
-    this.signup = this.signup.bind(this)
   }
 
   login(params, onError) {
     //redirects the call to auth0 instance
     this.auth0.login(params, onError)
-  }
-
-  signup(params, onError) {
-    //redirects the call to auth0 instance
-    this.auth0.signup(params, onError)
   }
 
   parseHash(hash) {
@@ -48,6 +43,7 @@ export default class AuthService {
 
   logout() {
     // Clear user token and profile data from local storage
-    localStorage.removeItem('id_token');
+    localStorage.removeItem('id_token')
+    this.auth0.logout({ returnTo: 'http://localhost:8080' })
   }
 }

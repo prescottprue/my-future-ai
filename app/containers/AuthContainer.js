@@ -3,16 +3,21 @@ import { Link } from 'react-router'
 import { Button, Container, Row, Col } from 'reactstrap'
 import AuthService from '../utils/AuthService'
 
+import { firebaseConnect, helpers } from 'react-redux-firebase'
 import { connect } from 'react-redux'
-@connect((store) => ({ auth: store.user.auth }))
 
+@firebaseConnect()
+@connect(({ firebase }) => ({
+    authError: helpers.pathToJS(firebase, 'authError'),
+    auth: helpers.pathToJS(firebase, 'auth'),
+    profile: helpers.pathToJS(firebase, 'profile')
+}))
 export default class AuthContainer extends React.Component {
-  googleLogin() {
-    this.props.auth.login({ connection: 'google-oauth2' })
-  }
-
-  facebookLogin() {
-    this.props.auth.login({ connection: 'facebook' })
+  login(provider) {
+    // Call with info
+    this.props.firebase.login({
+      provider: provider
+    })
   }
 
   render () {
@@ -26,12 +31,9 @@ export default class AuthContainer extends React.Component {
           <h3><small className="text-muted">Some fancy slogan</small></h3>
         </Row>
         <Row className="text-xs-center">
-          <p>Sign in with</p>
-          <Col xs="6">
-            <Button color="primary" onClick={ this.facebookLogin.bind(this) }>Facebook</Button>
-          </Col>
-          <Col xs="6">
-            <Button color="danger" onClick={ this.googleLogin.bind(this) }>Google</Button>
+          <Col xs={{ size: 6, offset: 3 }}>
+            <p>Sign in with</p>
+            <Button color="danger" onClick={ this.login.bind(this, 'google') }>Google</Button>
           </Col>
         </Row>
       </Container>
