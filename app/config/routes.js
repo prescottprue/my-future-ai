@@ -22,6 +22,10 @@ import PrimaryGoalsContainer from '../containers/goals/primary'
 import GoalContainer from '../containers/goals/detail'
 import GoalActionsContainer from '../containers/goals/actions'
 
+// Users containers
+import UserContainer from '../containers/users/detail'
+import UsersContainer from '../containers/users/list'
+
 import TutorialWrapper from '../components/TutorialWrapper'
 import ConnectWrapper from '../components/ConnectWrapper'
 
@@ -42,6 +46,8 @@ export default class Routes extends React.Component {
               </Route>
             </Route>
             <Route path='connections' component={ ConnectionsContainer } />
+            <Route path='users' component={ UsersContainer } />
+            <Route path='users/:id' component={ UserContainer } />
           </Route>
         </Route>
       </Router>

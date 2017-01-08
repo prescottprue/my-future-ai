@@ -13,11 +13,9 @@ import { firebaseConnect, helpers } from 'react-redux-firebase'
     profile: helpers.pathToJS(firebase, 'profile')
 }))
 export default class AuthContainer extends React.Component {
+
   login(provider) {
-    // Call with info
-    this.props.firebase.login({
-      provider: provider
-    })
+    this.props.firebase.login({ provider: provider })
   }
 
   render () {

@@ -3,7 +3,7 @@ export default function reducer(state = {
       { href: '/', title: "Home" },
       { href: '/goals', title: "Goals" },
       { href: '/connections', title: "Connections" },
-      { href: '/logout', title: "Sign out", action: true },
+      { href: 'logout', title: "Sign out", action: true },
     ]
   }, action) {
 

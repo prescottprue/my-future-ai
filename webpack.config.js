@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	template: __dirname + '/app/index.html',
@@ -10,11 +12,12 @@ module.exports = {
     historyApiFallback: true
   },
 	devtool: 'source-map',
+	// devtool: 'cheap-module-source-map',
 	entry: [
 		'./app/index.js'
 	],
 	output: {
-		path: __dirname,
+		path: (__dirname + '/dist'),
 		publicPath: '/',
 		filename: "index.js"
 	},
@@ -24,5 +27,18 @@ module.exports = {
 			{ test: /\.css$/, loader: "style-loader!css-loader" }
 		]
 	},
-	plugins: [HtmlWebpackPluginConfig]
+	plugins: [
+		HtmlWebpackPluginConfig,
+		// new webpack.DefinePlugin({
+		//   'process.env': {
+		//     NODE_ENV: JSON.stringify('production')
+		//   }
+		// }),
+		// new webpack.optimize.UglifyJsPlugin({
+		// 	compress: {
+  //       warnings: false
+  //   	},
+	 //    mangle: true
+		// })
+	]
 }

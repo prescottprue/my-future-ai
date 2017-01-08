@@ -4,7 +4,7 @@
   "description": "Set your goals and reach them",
   "main": "index.js",
   "scripts": {
-    "production": "webpack -p",
+    "production": "webpack --progress -p && firebase deploy",
     "start": "webpack-dev-server --hot --inline"
   },
   "repository": {
