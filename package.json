@@ -38,9 +38,11 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "css-loader": "^0.25.0",
-    "html-webpack-plugin": "^2.22.0",
-    "style-loader": "^0.13.1",
     "file-loader": "^0.8.1",
+    "html-webpack-plugin": "^2.22.0",
+    "node-sass": "^4.3.0",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
     "url-loader": "^0.5.5",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"

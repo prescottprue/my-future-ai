@@ -1,20 +1,18 @@
 import React , { PropTypes as T } from 'react'
 import { Link } from 'react-router'
-import { Container, Row, Col, Alert } from 'reactstrap'
+import { Container, Jumbotron, Row, Col, Alert } from 'reactstrap'
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 
 import AuthButton from '../components/AuthButton'
 import Errors from '../components/Errors'
 
+import image from '../assets/target.png'
+
 import { removeErrors, addError } from '../actions/ErrorActions'
 
 @firebaseConnect()
-@connect(({ firebase }) => ({
-    authError: helpers.pathToJS(firebase, 'authError'),
-    auth: helpers.pathToJS(firebase, 'auth'),
-    profile: helpers.pathToJS(firebase, 'profile')
-}))
+@connect(({ firebase }) => ({ auth: helpers.pathToJS(firebase, 'auth') }))
 export default class AuthContainer extends React.Component {
   login(provider) {
     removeErrors()
@@ -25,16 +23,15 @@ export default class AuthContainer extends React.Component {
   }
 
   render () {
-    console.log(this.state);
     return (
       <Container>
-        <Row className="jumbotron my-2 text-xs-center" style={{ background: 'none' }}>
-          <img src="https://placehold.it/128x128" className="img-fluid" alt="Responsive image" />
-          <h1 className="display-4">
-            App Title
+        <Jumbotron className="my-2 text-center" style={{ background: 'none' }}>
+          <img src={ image } className="img-fluid mb-3" alt="Responsive image" />
+          <h1 className="display-4 mb-0">
+            BANZAI.ai
           </h1>
-          <h3><small className="text-muted">Some fancy slogan</small></h3>
-        </Row>
+          <h3><small className="text-muted">Achieve your goals your way.</small></h3>
+        </Jumbotron>
         <Row className="text-xs-center">
           <Col xs={{ size: 10, offset: 1 }} sm={{ size: 8, offset: 2 }} xl={{ size: 4, offset: 4 }}>
             <AuthButton action={ this.login.bind(this, 'google') } icon="google-plus">Continue with Google</AuthButton>

@@ -49,12 +49,8 @@ export default class GoalContainer extends React.Component {
       <div>
         <PageHeading sub="This is a detailed view of your goal and action plan.">{ this.props.goal.text }</PageHeading>
         { this.props.goal.outcome && <div><p className="mb-0"><b>Desired outcome</b></p><p>{ this.props.goal.outcome }</p></div> }
-        <Row className="mt-1">
-          <Col xs="12">
             <p className="mb-0"><b>Actions</b></p>
             <CheckboxList items={ this.props.actions } checkProp='done' checkHandler={ this.actionDone.bind(this) }/>
-          </Col>
-        </Row>
         <hr />
         <Link to={ `/goals/${this.props.gid}/actions` }>Add actions</Link>
         <br />

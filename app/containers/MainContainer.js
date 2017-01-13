@@ -1,6 +1,7 @@
 import React from 'react'
 import { Alert } from 'reactstrap'
 
+require('../styles.scss')
 import AuthContainer from '../containers/AuthContainer'
 
 import { connect } from 'react-redux'

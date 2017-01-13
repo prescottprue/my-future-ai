@@ -16,7 +16,7 @@ export default class LinkedList extends React.Component {
         { this.props.data.map((item, index) => {
           return (
             <Row key={ index }>
-              <Col xs={12}>
+              <Col sm={12}>
                 <Link to={ item.link }>{ item.title }</Link>
               </Col>
             </Row>

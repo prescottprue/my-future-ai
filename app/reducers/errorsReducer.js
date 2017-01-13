@@ -10,6 +10,9 @@ export default function reducer(state = {
     case 'ADD_ERROR':
       newState.list.push(action.payload)
       break
+    case 'REMOVE_ERRORS':
+      newState.list = []
+      break
   }
 
   return newState;

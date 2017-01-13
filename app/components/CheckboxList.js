@@ -26,7 +26,7 @@ export default class CheckboxList extends React.Component {
 
     Object.keys(items).forEach((itemId) => {
       itemsList.push((
-        <FormGroup key={ itemId } check>
+        <FormGroup key={ itemId } className="mb-0" check>
           <Label check>
             <Input type="checkbox" name={ itemId }
               checked={ items[itemId][checkProp] }
@@ -39,11 +39,9 @@ export default class CheckboxList extends React.Component {
     })
 
     return (
-      <Row className="mt-1">
-        <Col xs="12">
-          { itemsList }
-        </Col>
-      </Row>
+      <div>
+        { itemsList }
+      </div>
     )
   }
 }

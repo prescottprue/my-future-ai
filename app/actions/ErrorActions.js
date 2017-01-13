@@ -5,5 +5,5 @@ export function addError(text, bold) {
 }
 
 export function removeErrors() {
-  
+  store.dispatch({ type: 'REMOVE_ERRORS' });
 }

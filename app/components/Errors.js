@@ -9,7 +9,6 @@ import AuthButton from '../components/AuthButton'
 @connect((store) => ({ errors: store.errors.list }))
 export default class AuthContainer extends React.Component {
   render () {
-    console.log(this.props.errors);
     return (
       <div>
         { this.props.errors.map((error, index) => {
