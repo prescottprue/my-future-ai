@@ -19,6 +19,15 @@ export default class NavigationContainer extends React.Component {
   }
 
   render () {
+    const items = this.props.navigationItems.map((link, index) => {
+      if ( ! link.action) {
+        return <Link key={ index } to={ link.href } className="dropdown-item">{ link.title }</Link>
+      }
+
+      let action = (link.action && typeof this[link.href] === 'function') ? this[link.href].bind(this) : null
+      return <Link key={ index } to="/" className="dropdown-item" onClick={ action }>{ link.title }</Link>
+    }, this)
+
     return (
       <Container>
         <nav className="px-0 navbar navbar-light bg-faded flex-row justify-content-between mb-2" style={{ backgroundColor: "white" }}>
@@ -26,28 +35,8 @@ export default class NavigationContainer extends React.Component {
             <img src={ image } alt="Logo" width="30" height="30" />
           </Link>
           { this.props.profile &&
-            <NavigationMenu profile={ this.props.profile }/>
+            <NavigationMenu profile={ this.props.profile } items={ items }/>
           }
-          <div className="collapse navbar-collapse">
-            <ul className="navbar-nav mr-auto">
-            { this.props.navigationItems.map((link, index) => {
-              if ( ! link.action) {
-                return (
-                  <li key={ index } className="nav-item">
-                    <Link to={ link.href } className="mr-1">{ link.title }</Link>
-                  </li>
-                )
-              }
-
-              let action = (link.action && typeof this[link.href] === 'function') ? this[link.href].bind(this) : null
-              return (
-                <li key={ index } className="nav-item">
-                  <Link to="/" onClick={ action }>{ link.title }</Link>
-                </li>
-              )
-            }, this)}
-            </ul>
-          </div>
         </nav>
           { this.props.children }
       </Container>
