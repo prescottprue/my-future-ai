@@ -28,7 +28,11 @@ export default class UsersContainer extends React.Component {
         <PageHeading>Users</PageHeading>
         <Row className="mt-1">
           { connections.map((person, index) => {
-            return <UserCard key={ index } profile={ person } />
+            return (
+              <UserCard key={ index } profile={ person }>
+                <Link to={ `/users/${person.uid}` }><Button>View</Button></Link>
+              </UserCard>
+            )
           }) }
         </Row>
       </Container>

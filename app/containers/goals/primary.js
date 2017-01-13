@@ -6,22 +6,29 @@ import PageHeading from '../../components/PageHeading'
 import CheckboxList from '../../components/CheckboxList'
 import DoneButton from '../../components/DoneButton'
 
+import DatabaseHelper from '../../utils/DatabaseHelper'
+
 @connect((state, props) => {
   const uid = helpers.pathToJS(state.firebase, 'auth').uid
 
   return ({
     uid: uid,
-    goals: helpers.dataToJS(state.firebase, `users/${uid}/goals`),
+    goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)),
   })
 })
 
 @firebaseConnect((props) => ([
-  `/users/${props.uid}/goals`
+  DatabaseHelper.getUserGoalsPath(props.uid)
 ]))
 
 export default class PrimaryGoalsContainer extends React.Component {
   togglePrimary (id, status) {
-    this.props.firebase.update(`/users/${this.props.uid}/goals/${id}`, { primary: !status })
+    let object = {
+      primary: ! status
+    }
+    if (status === false) { object.primarySet = this.props.firebase.database.ServerValue.TIMESTAMP }
+
+    this.props.firebase.update(DatabaseHelper.getUsersSingleGoalPath(this.props.uid, id), object)
   }
 
   render () {

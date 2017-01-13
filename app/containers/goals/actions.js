@@ -12,11 +12,11 @@ import SimpleList from '../../components/SimpleList'
 
   return ({
     gid,
-    actions: helpers.dataToJS(state.firebase, `actions/${gid}`),
+    actions: helpers.dataToJS(state.firebase, `goals_actions/${gid}`),
   })
 })
 @firebaseConnect((props) => ([
-  `actions/${props.gid}`
+  `goals_actions/${props.gid}`
 ]))
 export default class GoalActionsContainer extends React.Component {
   constructor (props) {
@@ -29,9 +29,10 @@ export default class GoalActionsContainer extends React.Component {
   }
 
   handleAdd () {
-    this.props.firebase.push(`/actions/${this.props.gid}`, {
+    this.props.firebase.push(`/goals_actions/${this.props.gid}`, {
       text: this.state.newAction,
       done: false,
+      cdate: this.props.firebase.database.ServerValue.TIMESTAMP
     })
     this.state.newAction = ''
   }

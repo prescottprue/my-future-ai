@@ -2,12 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 import { Row, Col, Button, FormGroup, Label, Input } from 'reactstrap'
-import _ from 'lodash'
+import { Link } from 'react-router'
 
 import PageHeading from '../components/PageHeading'
 import CheckboxList from '../components/CheckboxList'
 import Loading from '../components/Loading'
 import LinkedList from '../components/LinkedList'
+
+import DatabaseHelper from '../utils/DatabaseHelper'
 
 const { pathToJS, dataToJS, isLoaded, isEmpty } = helpers
 
@@ -16,18 +18,18 @@ const { pathToJS, dataToJS, isLoaded, isEmpty } = helpers
 
   return ({
     uid: uid,
-    goals: dataToJS(state.firebase, `users/${uid}/goals`),
+    goals: dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)),
   })
 })
 @firebaseConnect((props) => ([
-  `/users/${props.uid}/goals`
+  DatabaseHelper.getUserGoalsPath(props.uid)
 ]))
 export default class DashboardContainer extends React.Component {
 
 
 
   toggleDone (id, status) {
-    this.props.firebase.update(`/users/${this.props.uid}/goals/${id}`, { done: !status })
+    this.props.firebase.update(DatabaseHelper.getUsersSingleGoalPath(this.props.uid, id), { done: !status })
   }
 
   render () {
@@ -62,6 +64,8 @@ export default class DashboardContainer extends React.Component {
       <div>
         <PageHeading sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
         <LinkedList data={ goalsList } />
+        <hr />
+        <Link to={ `/goals/list` }>Add more goals</Link>
       </div>
     )
   }

@@ -6,18 +6,19 @@ import { Container, Row, Col, InputGroup, Input, InputGroupButton, Button } from
 
 import PageHeading from '../../components/PageHeading'
 import SimpleList from '../../components/SimpleList'
+import DoneButton from '../../components/DoneButton'
+
+import DatabaseHelper from '../../utils/DatabaseHelper'
 
 @connect((state, props) => {
   const uid = helpers.pathToJS(state.firebase, 'auth').uid
 
   return ({
     uid: uid,
-    goals: helpers.dataToJS(state.firebase, `users/${uid}/goals`),
+    goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)),
   })
 })
-@firebaseConnect((props) => ([
-  `/users/${props.uid}/goals`
-]))
+@firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
 export default class ListGoalsContainer extends React.Component {
   constructor (props) {
     super(props);
@@ -30,11 +31,11 @@ export default class ListGoalsContainer extends React.Component {
 
   handleAdd () {
     // Add a new todo to firebase
-    this.props.firebase.push(`/users/${this.props.uid}/goals`, {
+    this.props.firebase.push(DatabaseHelper.getUserGoalsPath(this.props.uid), {
       text: this.state.newGoal,
       done: false,
       primary: false,
-      uid: this.props.uid
+      cdate: this.props.firebase.database.ServerValue.TIMESTAMP
     })
     this.state.newGoal = ''
   }
@@ -52,7 +53,7 @@ export default class ListGoalsContainer extends React.Component {
             <SimpleList goals={ this.props.goals }/>
           </Col>
         </Row>
-        <Link className="float-xs-right" to="/goals"><Button outline color="primary">Done</Button></Link>
+        <DoneButton link={ (this.props.router.goBack) ? this.props.router.goBack : '/goals' } />
       </Container>
     )
   }

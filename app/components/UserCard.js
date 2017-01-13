@@ -40,7 +40,7 @@ export default class UserCard extends React.Component {
             </dl>
           </Col>
         </Row>
-        <Link to={ `/users/${profile.uid}` }><Button>View</Button></Link>
+        { this.props.children }
       </Card>
     )
   }

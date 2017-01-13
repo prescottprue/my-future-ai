@@ -1,4 +1,5 @@
 import React from 'react'
+import { Alert } from 'reactstrap'
 
 import AuthContainer from '../containers/AuthContainer'
 
@@ -8,21 +9,37 @@ import { firebaseConnect, helpers } from 'react-redux-firebase'
 @firebaseConnect((props) => ([]))
 export default class MainContainer extends React.Component {
   updateUser () {
-    if (this.props.auth === undefined || this.props.auth === null) { return }
-    this.props.firebase.update(`/users/${this.props.auth.uid}`, {
-      displayName: this.props.auth.displayName,
-      email: this.props.auth.email,
-      photo: this.props.auth.photoURL,
+    const { firebase, auth } = this.props
+
+    if (auth === undefined || auth === null) { return }
+
+    firebase.update(`/users/${auth.uid}`, {
+      displayName: auth.displayName,
+      email: auth.email,
+      photo: auth.photoURL,
     })
+
+    firebase.ref('.info/connected').on('value', function(connectedSnap) {
+      if (connectedSnap.val() === false) { return }
+
+      firebase.update(`/users/${auth.uid}`, { online:  true, lastSeen: null })
+    });
+
+    firebase.ref(`/users/${auth.uid}`).onDisconnect().update({ online:  false, lastSeen: firebase.database.ServerValue.TIMESTAMP })
   }
   render () {
     this.updateUser.call(this)
+
 
     switch(this.props.auth) {
       case undefined:
         return <div>Loading...</div>
       case null:
-        return <AuthContainer />
+        return (
+          <div>
+            <AuthContainer />
+          </div>
+        )
       default:
         return <div>{ this.props.children }</div>
     }

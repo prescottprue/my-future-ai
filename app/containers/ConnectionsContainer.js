@@ -6,41 +6,44 @@ import PageHeading from '../components/PageHeading'
 import UserCard from '../components/UserCard'
 import Empty from '../components/Empty'
 
+import FirebaseHelper from '../utils/FirebaseHelper'
+
 // Decorators
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 @connect(( state, props ) => {
-  const uid = helpers.pathToJS(state.firebase, 'auth').uid
+  const uid = helpers.pathToJS(state.firebase, 'auth').uid,
+        requests = new FirebaseHelper(helpers.dataToJS(state.firebase, `connections/${uid}`))
+                 .filter((object) => { return object.accepted === false })
+                 .data
+
 
   return {
-    users: helpers.dataToJS(state.firebase, `users/${uid}/connections`),
-    uid
+    users: helpers.dataToJS(state.firebase, `users`),
+    uid,
+    requests
   }
 })
-@firebaseConnect((props) => ([ `users/${props.uid}/connections` ]))
+@firebaseConnect((props) => ([
+  `/users`,
+  `/connections/${props.uid}`
+]))
 export default class ConnectionsContainer extends React.Component {
   render () {
-    let connections = []
-
-    _.each(this.props.users, (value, key) => {
-      // Remove self from list
-      if (key === this.props.auth.uid) { return }
-      connections.push(_.assign(value, { uid: key }))
-    })
-
-
     return (
       <div>
         <PageHeading>Connections</PageHeading>
         <Row className="mt-1">
           <Col xs={12}>
-            { (connections.length === 0) && <Empty /> }
-            { connections.map((person, index) => {
-              return <UserCard key={ index } profile={ person } />
+            { (this.props.requests.length === 0) && <Empty /> }
+            { this.props.requests.map((person, index) => {
+              return <UserCard key={ index } profile={ this.props.users[person.key] } />
             }) }
           </Col>
         </Row>
         <Link to='/users'>View other users</Link>
+        <br />
+        <Link to='/requests'>View connection requests</Link>
       </div>
     )
   }

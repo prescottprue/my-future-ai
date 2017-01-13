@@ -1,8 +1,6 @@
 import React from 'react'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-import AuthService from '../utils/AuthService'
-
 import MainContainer from '../containers/MainContainer'
 import NavigationContainer from '../containers/NavigationContainer'
 import TutorialContainer from '../containers/TutorialContainer'
@@ -21,10 +19,13 @@ import ListGoalsContainer from '../containers/goals/list'
 import PrimaryGoalsContainer from '../containers/goals/primary'
 import GoalContainer from '../containers/goals/detail'
 import GoalActionsContainer from '../containers/goals/actions'
+import GoalOutcomeContainer from '../containers/goals/outcome'
 
 // Users containers
 import UserContainer from '../containers/users/detail'
 import UsersContainer from '../containers/users/list'
+
+import RequestsContainer from '../containers/RequestsContainer'
 
 import TutorialWrapper from '../components/TutorialWrapper'
 import ConnectWrapper from '../components/ConnectWrapper'
@@ -43,9 +44,11 @@ export default class Routes extends React.Component {
               <Route path=':id'>
                 <IndexRoute component={ GoalContainer } />
                 <Route path='actions' component={ GoalActionsContainer } />
+                <Route path='outcome' component={ GoalOutcomeContainer } />
               </Route>
             </Route>
             <Route path='connections' component={ ConnectionsContainer } />
+            <Route path='requests' component={ RequestsContainer } />
             <Route path='users' component={ UsersContainer } />
             <Route path='users/:id' component={ UserContainer } />
           </Route>

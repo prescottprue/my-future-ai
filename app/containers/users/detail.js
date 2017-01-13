@@ -11,7 +11,6 @@ import DoneButton from '../../components/DoneButton'
 
 @connect((state, props) => {
   return ({
-    back: props.router.goBack,
     user: helpers.dataToJS(state.firebase, `users/${props.params.id}`),
     uid: helpers.pathToJS(state.firebase, 'auth').uid,
   })
@@ -25,8 +24,8 @@ export default class UserContainer extends React.Component {
 
   sendRequest () {
     let data = {}
-    data[this.props.params.id] = true
-    this.props.firebase.update(`requests/${ this.props.uid }`, data)
+    data[this.props.uid] = { accepted: false }
+    this.props.firebase.update(`connections/${ this.props.params.id }`, data)
   }
 
   render () {
@@ -44,7 +43,7 @@ export default class UserContainer extends React.Component {
             return <li className="mb-0" key={ key }>{ user.goals[key].text }</li>
           })}
         </ul>
-        <Button outline onClick={ this.sendRequest.bind(this) } color="success">Connect</Button> <Button outline onClick={ this.props.back } color="primary">Back</Button>
+        <Button outline onClick={ this.sendRequest.bind(this) } color="success">Connect</Button> <Button outline onClick={ this.props.router.goBack } color="primary">Back</Button>
       </div>
     )
   }
