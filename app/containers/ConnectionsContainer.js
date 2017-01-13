@@ -32,7 +32,7 @@ export default class ConnectionsContainer extends React.Component {
   render () {
     return (
       <div>
-        <PageHeading>Connections</PageHeading>
+        <PageHeading image="open-book">Connections</PageHeading>
         <Row className="mt-1">
           <Col xs={12}>
             { (this.props.requests.length === 0) && <Empty /> }

@@ -14,7 +14,7 @@ export default class GoalsContainer extends React.Component {
     ]
     return (
       <div>
-        <PageHeading sub="This is a list of tools designed to help you achieve your goals.">Tools for your goals</PageHeading>
+        <PageHeading image="loupe" sub="This is a list of tools designed to help you achieve your goals.">Tools for your goals</PageHeading>
 
         <LinkedList data={links} />
       </div>

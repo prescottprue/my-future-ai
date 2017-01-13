@@ -38,7 +38,7 @@ export default class GoalOutcomeContainer extends React.Component {
   render () {
     return (
       <div>
-        <PageHeading>Desired outcome</PageHeading>
+        <PageHeading image="idea">Desired outcome</PageHeading>
         <OutcomeForm onSubmit={ this.handleSubmit.bind(this) } initialValues={ this.props.goal }/>
       </div>
     )

@@ -48,13 +48,26 @@ export default class GoalContainer extends React.Component {
     return (
       <div>
         <PageHeading sub="This is a detailed view of your goal and action plan.">{ this.props.goal.text }</PageHeading>
-        { this.props.goal.outcome && <div><p className="mb-0"><b>Desired outcome</b></p><p>{ this.props.goal.outcome }</p></div> }
-            <p className="mb-0"><b>Actions</b></p>
+        { this.props.goal.outcome &&
+          <div>
+            <p className="mb-0"><b>Desired outcome</b> (<Link to={ `/goals/${this.props.gid}/outcome` }>Edit</Link>) </p>
+            <p>{ this.props.goal.outcome }</p>
+          </div>
+        }
+        { this.props.actions &&
+          <div>
+            <p className="mb-0"><b>Actions</b> (<Link to={ `/goals/${this.props.gid}/actions` }>Add more actions</Link>)</p>
             <CheckboxList items={ this.props.actions } checkProp='done' checkHandler={ this.actionDone.bind(this) }/>
-        <hr />
-        <Link to={ `/goals/${this.props.gid}/actions` }>Add actions</Link>
-        <br />
-        <Link to={ `/goals/${this.props.gid}/outcome` }>Describe desired outcome</Link>
+          </div>
+        }
+        { ( ! this.props.goal.outcome || ! this.props.actions ) && <hr /> }
+        { !this.props.goal.outcome && <Link to={ `/goals/${this.props.gid}/outcome` }>Describe desired outcome</Link> }
+        { !this.props.actions &&
+          <div>
+            <br />
+            <Link to={ `/goals/${this.props.gid}/actions` }>Add actions</Link>
+          </div>
+        }
         <hr />
         <DateTime text="Created on" time={ this.props.goal.cdate } />
         <DateTime text="Selected as primary on" time={ this.props.goal.primarySet } />

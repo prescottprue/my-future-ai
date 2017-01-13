@@ -34,7 +34,7 @@ export default class PrimaryGoalsContainer extends React.Component {
   render () {
     return (
       <div>
-        <PageHeading sub="These are the goals you would like to work on.">Select your primary goals</PageHeading>
+        <PageHeading image="edit" sub="These are the goals you would like to work on.">Select your primary goals</PageHeading>
 
         <CheckboxList items={ this.props.goals } checkProp='primary' checkHandler={ this.togglePrimary.bind(this) }/>
 

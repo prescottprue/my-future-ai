@@ -39,7 +39,7 @@ export default class DashboardContainer extends React.Component {
     if (goals === undefined) {
       return (
         <div>
-          <PageHeading sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
+          <PageHeading image="flag" sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
           <Loading />
         </div>
       )
@@ -62,7 +62,7 @@ export default class DashboardContainer extends React.Component {
 
     return (
       <div>
-        <PageHeading sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
+        <PageHeading image="flag" sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
         <LinkedList data={ goalsList } />
         <hr />
         <Link to={ `/goals/list` }>Add more goals</Link>
