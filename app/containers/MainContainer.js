@@ -31,16 +31,11 @@ export default class MainContainer extends React.Component {
   render () {
     this.updateUser.call(this)
 
-
     switch(this.props.auth) {
       case undefined:
         return <div>Loading...</div>
       case null:
-        return (
-          <div>
-            <AuthContainer />
-          </div>
-        )
+        return <AuthContainer />
       default:
         return <div>{ this.props.children }</div>
     }

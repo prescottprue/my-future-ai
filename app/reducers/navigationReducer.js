@@ -1,8 +1,8 @@
 export default function reducer(state = {
     links: [
-      { href: '/goals', title: "Tools" },
-      { href: '/connections', title: "Connections" },
-      { href: 'logout', title: "Sign out", action: true },
+      { href: '/goals', image: 'loupe', title: "Tools" },
+      { href: '/connections', image: 'open-book', title: "Connections" },
+      { href: 'logout', image: 'power-button', title: "Sign out", action: true },
     ]
   }, action) {
 

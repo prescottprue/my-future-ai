@@ -8,6 +8,7 @@ import PageHeading from '../components/PageHeading'
 import CheckboxList from '../components/CheckboxList'
 import Loading from '../components/Loading'
 import LinkedList from '../components/LinkedList'
+import ActionsList from '../components/ActionsList'
 
 import DatabaseHelper from '../utils/DatabaseHelper'
 
@@ -21,13 +22,8 @@ const { pathToJS, dataToJS, isLoaded, isEmpty } = helpers
     goals: dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)),
   })
 })
-@firebaseConnect((props) => ([
-  DatabaseHelper.getUserGoalsPath(props.uid)
-]))
+@firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
 export default class DashboardContainer extends React.Component {
-
-
-
   toggleDone (id, status) {
     this.props.firebase.update(DatabaseHelper.getUsersSingleGoalPath(this.props.uid, id), { done: !status })
   }
@@ -35,6 +31,11 @@ export default class DashboardContainer extends React.Component {
   render () {
     const { goals } = this.props
     let goalsList
+
+    let links = [
+      { title: 'Tutorial', link: 'tutorial', image: 'brightness' },
+      { title: 'Tools', link: 'goals', image: 'loupe' }
+    ]
 
     if (goals === undefined) {
       return (
@@ -65,7 +66,7 @@ export default class DashboardContainer extends React.Component {
         <PageHeading image="flag" sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
         <LinkedList data={ goalsList } />
         <hr />
-        <Link to={ `/goals/list` }>Add more goals</Link>
+        <ActionsList data={links} />
       </div>
     )
   }

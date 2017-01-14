@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { Container, Collapse, Nav, NavDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavItem } from 'reactstrap'
 
 import NavigationMenu from '../components/NavigationMenu'
+import LinkImage from '../components/LinkImage'
 
 import image from '../assets/target.png'
 
@@ -21,11 +22,11 @@ export default class NavigationContainer extends React.Component {
   render () {
     const items = this.props.navigationItems.map((link, index) => {
       if ( ! link.action) {
-        return <Link key={ index } to={ link.href } className="dropdown-item">{ link.title }</Link>
+        return <Link key={ index } to={ link.href } className="dropdown-item"><LinkImage image={ link.image }/>{ link.title }</Link>
       }
 
       let action = (link.action && typeof this[link.href] === 'function') ? this[link.href].bind(this) : null
-      return <Link key={ index } to="/" className="dropdown-item" onClick={ action }>{ link.title }</Link>
+      return <Link key={ index } to="/" className="dropdown-item" onClick={ action }><LinkImage image={ link.image }/>{ link.title }</Link>
     }, this)
 
     return (

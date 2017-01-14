@@ -4,6 +4,10 @@ button {
 
 .card a {
   color: inherit;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .col-6 {

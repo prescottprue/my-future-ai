@@ -1,4 +1,5 @@
 import React from 'react'
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 export default class NavigationMenu extends React.Component {
   constructor () {
@@ -12,16 +13,14 @@ export default class NavigationMenu extends React.Component {
 
   render () {
     return (
-      <div onClick={ this.toggle.bind(this) }>
-        <div className={ (this.state.open) ? "dropdown show" : "dropdown" }>
-          <div className="navbar-brand mr-0 dropdown-toggle">
-            <img src={ this.props.profile.photo } alt={ this.props.profile.displayName + ' avatar' } className="rounded-circle" width="30" height="30" />
-          </div>
-          <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            { this.props.items }
-          </div>
-        </div>
-      </div>
+      <ButtonDropdown isOpen={this.state.open} toggle={this.toggle.bind(this)}>
+        <DropdownToggle className="border-0" caret>
+          <img src={ this.props.profile.photo } alt={ this.props.profile.displayName + ' avatar' } className="rounded-circle" width="30" height="30" />
+        </DropdownToggle>
+        <DropdownMenu className="dropdown-menu-right">
+          { this.props.items }
+        </DropdownMenu>
+      </ButtonDropdown>
     )
   }
 }

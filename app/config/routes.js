@@ -3,7 +3,10 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import MainContainer from '../containers/MainContainer'
 import NavigationContainer from '../containers/NavigationContainer'
-import TutorialContainer from '../containers/TutorialContainer'
+
+// Tutorial
+import TutorialContainer from '../containers/tutorial/introduction'
+
 import TutorialConnectOthersContainer from '../containers/TutorialConnectOthersContainer'
 import TutorialConnectExpertsContainer from '../containers/TutorialConnectExpertsContainer'
 import TutorialConnectMentorsContainer from '../containers/TutorialConnectMentorsContainer'
@@ -35,6 +38,9 @@ export default class Routes extends React.Component {
     return (
       <Router history={ browserHistory }>
         <Route path='/' component={ MainContainer }>
+          <Route component={ NavigationContainer }>
+            <Route path='tutorial' component={ TutorialContainer } />
+          </Route>
           <Route component={ NavigationContainer }>
             <IndexRoute component={ DashboardContainer } />
             <Route path='goals'>
