@@ -1,3 +1,22 @@
 button {
   cursor: pointer;
 }
+
+.card a {
+  color: inherit;
+}
+
+.col-6 {
+  padding: {
+    right: 7.5px;
+    left: 7.5px;
+  }
+
+  &:first-child {
+    padding-left: 15px;
+  }
+
+  &:last-child {
+    padding-right: 15px;
+  }
+}
