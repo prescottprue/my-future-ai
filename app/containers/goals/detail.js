@@ -6,6 +6,7 @@ import { Container, Row, Col, InputGroup, Input, InputGroupButton, Button } from
 
 import PageHeading from '../../components/PageHeading'
 import Loading from '../../components/Loading'
+import SimpleList from '../../components/SimpleList'
 import CheckboxList from '../../components/CheckboxList'
 import DateTime from '../../components/DateTime'
 
@@ -30,13 +31,15 @@ import DatabaseHelper from '../../utils/DatabaseHelper'
 ]))
 
 export default class GoalContainer extends React.Component {
-  actionDone (id, status) {
-    let object = {
-      done: ! status
-    }
-    if (status === false) { object.doneSet = this.props.firebase.database.ServerValue.TIMESTAMP }
+  actionDone (id) {
+    this.props.firebase.update(DatabaseHelper.getGoalAction(this.props.gid, id), {
+      done: true,
+      doneSet: this.props.firebase.database.ServerValue.TIMESTAMP
+    })
+  }
 
-    this.props.firebase.update(DatabaseHelper.getGoalAction(this.props.gid, id), object)
+  actionDelete (id) {
+    this.props.firebase.remove(DatabaseHelper.getGoalAction(this.props.gid, id))
   }
 
   goalDone () {
@@ -44,6 +47,15 @@ export default class GoalContainer extends React.Component {
   }
 
   render () {
+    let actionsFilters = [
+      function(item) { return item.done === true }
+    ]
+
+    let actions = [
+      { type: 'DONE', func: this.actionDone.bind(this), image: 'verification-checkmark-symbol' },
+      { type: 'DELETE', func: this.actionDelete.bind(this), image: 'trash-can-black-symbol' }
+    ]
+
     if (this.props.goal === undefined) { return <Loading /> }
     return (
       <div>
@@ -57,7 +69,12 @@ export default class GoalContainer extends React.Component {
         { this.props.actions &&
           <div>
             <p className="mb-0"><b>Actions</b> (<Link to={ `/goals/${this.props.gid}/actions` }>Add more actions</Link>)</p>
-            <CheckboxList items={ this.props.actions } checkProp='done' checkHandler={ this.actionDone.bind(this) }/>
+            <SimpleList
+              items={ this.props.actions }
+              sort={{ property: "cdate", ascending: false }}
+              filters={ actionsFilters }
+              actions={ actions }
+            />
           </div>
         }
         { ( ! this.props.goal.outcome || ! this.props.actions ) && <hr /> }

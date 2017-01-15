@@ -45,7 +45,7 @@ export default class ListGoalsContainer extends React.Component {
       <Container>
         <PageHeading image="edit" sub="This is a list of your dreams, wishes and goals.">List your goals</PageHeading>
         <InputGroup className="mt-1">
-          <Input name="add" placeholder="I want to..." value={this.state.newGoal} onChange={this.handleChange.bind(this)}/>
+          <Input style={{ padding: '.75rem 1.25rem' }} name="add" placeholder="I want to..." value={this.state.newGoal} onChange={this.handleChange.bind(this)}/>
           <InputGroupButton onClick={ this.handleAdd.bind(this) }>Add</InputGroupButton>
         </InputGroup>
         <Row className="mt-1">

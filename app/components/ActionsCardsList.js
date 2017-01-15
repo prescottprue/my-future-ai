@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap'
 
 import ActionCard from './ActionCard'
 
-export default class ActionsList extends React.Component {
+export default class ActionsCardsList extends React.Component {
   render () {
     return (
       <Row>

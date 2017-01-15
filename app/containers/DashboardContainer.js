@@ -8,7 +8,7 @@ import PageHeading from '../components/PageHeading'
 import CheckboxList from '../components/CheckboxList'
 import Loading from '../components/Loading'
 import LinkedList from '../components/LinkedList'
-import ActionsList from '../components/ActionsList'
+import ActionsCardsList from '../components/ActionsCardsList'
 
 import DatabaseHelper from '../utils/DatabaseHelper'
 
@@ -66,7 +66,7 @@ export default class DashboardContainer extends React.Component {
         <PageHeading image="flag" sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
         <LinkedList data={ goalsList } />
         <hr />
-        <ActionsList data={links} />
+        <ActionsCardsList data={links} />
       </div>
     )
   }

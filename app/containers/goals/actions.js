@@ -42,7 +42,7 @@ export default class GoalActionsContainer extends React.Component {
       <Container>
         <PageHeading image="list" sub="The list of steps you could take to achieve your goal.">List goal actions</PageHeading>
         <InputGroup className="mt-1">
-          <Input name="add" placeholder="I want to..." value={this.state.newAction} onChange={this.handleChange.bind(this)}/>
+          <Input style={{ padding: '.75rem 1.25rem' }} name="add" placeholder="I want to..." value={this.state.newAction} onChange={this.handleChange.bind(this)}/>
           <InputGroupButton onClick={ this.handleAdd.bind(this) }>Add</InputGroupButton>
         </InputGroup>
         <Row className="mt-1">

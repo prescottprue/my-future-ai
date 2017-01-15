@@ -4,7 +4,7 @@ import { Button, Row, Col } from 'reactstrap'
 
 import PageHeading from '../components/PageHeading'
 import LinkedList from '../components/LinkedList'
-import ActionsList from '../components/ActionsList'
+import ActionsCardsList from '../components/ActionsCardsList'
 
 export default class GoalsContainer extends React.Component {
 
@@ -17,7 +17,7 @@ export default class GoalsContainer extends React.Component {
       <div>
         <PageHeading image="loupe" sub="This is a list of tools designed to help you achieve your goals.">Tools for your goals</PageHeading>
 
-        <ActionsList data={links} />
+        <ActionsCardsList data={links} />
       </div>
     )
   }

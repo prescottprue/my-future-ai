@@ -38,9 +38,7 @@ export default class Routes extends React.Component {
     return (
       <Router history={ browserHistory }>
         <Route path='/' component={ MainContainer }>
-          <Route component={ NavigationContainer }>
-            <Route path='tutorial' component={ TutorialContainer } />
-          </Route>
+          <Route path='tutorial' component={ TutorialContainer } />
           <Route component={ NavigationContainer }>
             <IndexRoute component={ DashboardContainer } />
             <Route path='goals'>
