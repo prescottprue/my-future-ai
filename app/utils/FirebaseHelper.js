@@ -10,25 +10,19 @@ export default class FirebaseHelper {
   }
 
   filter (filter) {
-    if (typeof filter !== 'function') { return this }
-
-    _.remove(this.data, (value, index) => {
-      return filter(value)
-    })
+    if (typeof filter === 'function') {
+      _.remove(this.data, (value, index) => { return filter(value) })
+    }
 
     return this
   }
 
-  sort (propertyName, ascending = true) {
-    this.data.sort((a, b) => {
-      if (a[propertyName] < b[propertyName]) {
-        return (ascending) ? -1 : 1
-      } else if (a[propertyName] > b[propertyName]) {
-        return (ascending) ? 1 : -1
-      } else {
-        return 0
-      }
-    })
+  sort (func, order) {
+    if (func.constructor === Array) {
+      this.data = _.orderBy(this.data, func, order)
+    } else if (typeof filter === 'function') {
+      this.data = _.orderBy(this.data, [ func ], [ order ])
+    }
 
     return this
   }

@@ -14,7 +14,7 @@ export default class ListAction extends React.Component {
 
   render () {
     return (
-      <span className="actionBox" onClick={ this.props.action } style={{ right: this.props.position * 65 }}>
+      <span className="action-box" onClick={ this.props.action } style={{ right: this.props.position * 45 }}>
         <img src={ require(`../assets/${ this.props.image }.png`) } />
       </span>
     );

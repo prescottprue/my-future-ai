@@ -2,21 +2,56 @@ $primary: #31ccc9;
 
 $border-color: rgba(0,0,0,.125);
 
-$padding-vertical: 12px;
-$padding-horizontal: 20px;
+$padding-vertical: 10px;
+$padding-horizontal: 10px;
 $icon-sm: 24px;
+
+$container-padding: 15px;
+
+$xs-media: 575px;
 
 button {
   cursor: pointer;
 }
 
-.actionBox {
-  right: 0;
+.list-group-item {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  padding: $padding-vertical $container-padding;
+}
+
+.simple-list {
+  margin-left: -$container-padding;
+  margin-right: -$container-padding;
+
+  li.list-group-item {
+    padding: $padding-vertical 100px $padding-vertical $container-padding;
+  }
+
+  @media (max-width: 575px) {
+
+    li.list-group-item {
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+    }
+  }
+}
+
+.action-box {
+  top: 0;
   position: absolute;
-  margin-top: -$padding-vertical;
   padding: $padding-vertical $padding-horizontal;
   border-left: 1px solid $border-color;
   cursor: pointer;
+  background-color: white;
+
+  &:last-child {
+    border-top-right-radius: .25rem;
+  }
 
   img {
     height: $icon-sm;

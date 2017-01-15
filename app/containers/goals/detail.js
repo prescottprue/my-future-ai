@@ -9,6 +9,7 @@ import Loading from '../../components/Loading'
 import SimpleList from '../../components/SimpleList'
 import CheckboxList from '../../components/CheckboxList'
 import DateTime from '../../components/DateTime'
+import ActionModal from '../../components/ActionModal'
 
 import DatabaseHelper from '../../utils/DatabaseHelper'
 
@@ -31,15 +32,38 @@ import DatabaseHelper from '../../utils/DatabaseHelper'
 ]))
 
 export default class GoalContainer extends React.Component {
-  actionDone (id) {
-    this.props.firebase.update(DatabaseHelper.getGoalAction(this.props.gid, id), {
+  constructor () {
+    super()
+    this.state = { modal: false, item: null }
+  }
+
+  toggle (item) {
+    if (this.state.modal === true) {
+      this.setState({ modal: false })
+    } else {
+      this.setState({ modal: true, item: item })
+    }
+  }
+
+  actionDone (item) {
+    this.props.firebase.update(DatabaseHelper.getGoalAction(this.props.gid, item.key), {
       done: true,
       doneSet: this.props.firebase.database.ServerValue.TIMESTAMP
     })
   }
 
-  actionDelete (id) {
-    this.props.firebase.remove(DatabaseHelper.getGoalAction(this.props.gid, id))
+  actionDelete () {
+    this.props.firebase.remove(DatabaseHelper.getGoalAction(this.props.gid, this.state.item.key ))
+    this.toggle()
+  }
+
+  actionEdit (form) {
+    let editedAction = { ...form }
+    editedAction.priority = parseInt(editedAction.priority)
+    delete editedAction.key
+
+    this.props.firebase.update(DatabaseHelper.getGoalAction(this.props.gid, form.key), editedAction)
+    this.toggle()
   }
 
   goalDone () {
@@ -51,9 +75,20 @@ export default class GoalContainer extends React.Component {
       function(item) { return item.done === true }
     ]
 
+    let actionsSort = [
+      (o) => { return o.priority },
+      (o) => { return o.cdate }
+    ]
+
+    let sortOrder = [
+      "desc",
+      "asc"
+    ]
+
     let actions = [
       { type: 'DONE', func: this.actionDone.bind(this), image: 'verification-checkmark-symbol' },
-      { type: 'DELETE', func: this.actionDelete.bind(this), image: 'trash-can-black-symbol' }
+      { type: 'EDIT', func: this.toggle.bind(this), image: 'pencil-edit' }
+      // { type: 'DELETE', func: this.actionDelete.bind(this), image: 'trash-can-black-symbol' }
     ]
 
     if (this.props.goal === undefined) { return <Loading /> }
@@ -71,7 +106,8 @@ export default class GoalContainer extends React.Component {
             <p className="mb-0"><b>Actions</b> (<Link to={ `/goals/${this.props.gid}/actions` }>Add more actions</Link>)</p>
             <SimpleList
               items={ this.props.actions }
-              sort={{ property: "cdate", ascending: false }}
+              sort={ actionsSort }
+              sortOrder={ sortOrder }
               filters={ actionsFilters }
               actions={ actions }
             />
@@ -88,6 +124,15 @@ export default class GoalContainer extends React.Component {
         <hr />
         <DateTime text="Created on" time={ this.props.goal.cdate } />
         <DateTime text="Selected as primary on" time={ this.props.goal.primarySet } />
+
+        <ActionModal
+          isOpen={ this.state.modal }
+          toggle={ this.toggle.bind(this) }
+          danger={ this.actionDelete.bind(this) }
+          onSubmit={ this.actionEdit.bind(this) }
+          initialValues={ this.state.item }
+        >
+        </ActionModal>
       </div>
     )
   }

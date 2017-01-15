@@ -12,10 +12,7 @@ export default class SimpleList extends React.Component {
   static propTypes = {
     items: T.object,
     filters: T.array,
-    sort: T.shape({
-      property: T.string.isRequired,
-      ascending: T.bool
-    })
+    sort: T.arrayOf(T.func)
   }
 
   render () {
@@ -36,16 +33,16 @@ export default class SimpleList extends React.Component {
       this.props.filters.forEach((filter) => { items.filter(filter) })
     }
 
-    if (this.props.sort !== undefined) { items.sort(this.props.sort.property, this.props.sort.ascending) }
+    if (this.props.sort !== undefined) { items.sort(this.props.sort, this.props.sortOrder) }
 
     return (
-      <ListGroup className="mb-3">
+      <ListGroup className="mb-3" className="simple-list">
         { items.data.map((item) => {
           return (
             <ListGroupItem key={ item.key }>
               { item.text }
               { this.props.actions.map((action, index) => {
-                return <ListAction key={ index } action={ action.func.bind(this, item.key) } image={ action.image } position={ this.props.actions.length - index - 1 }/>
+                return <ListAction key={ index } action={ action.func.bind(this, item) } image={ action.image } position={ this.props.actions.length - index - 1 }/>
               })}
             </ListGroupItem>
           )

@@ -32,7 +32,8 @@ export default class GoalActionsContainer extends React.Component {
     this.props.firebase.push(`/goals_actions/${this.props.gid}`, {
       text: this.state.newAction,
       done: false,
-      cdate: this.props.firebase.database.ServerValue.TIMESTAMP
+      cdate: this.props.firebase.database.ServerValue.TIMESTAMP,
+      priority: 1
     })
     this.state.newAction = ''
   }
