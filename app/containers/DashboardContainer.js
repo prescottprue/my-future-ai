@@ -9,6 +9,7 @@ import CheckboxList from '../components/CheckboxList'
 import Loading from '../components/Loading'
 import LinkedList from '../components/LinkedList'
 import ActionsCardsList from '../components/ActionsCardsList'
+import GoalCard from '../components/GoalCard'
 
 import DatabaseHelper from '../utils/DatabaseHelper'
 
@@ -57,23 +58,19 @@ export default class DashboardContainer extends React.Component {
 
       goalsList.push({
         title: goal.text,
-        link: `goals/${ key }`
+        id: key
       })
     })
 
     return (
       <div>
         <PageHeading image="flag" sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
-        <LinkedList data={ goalsList } />
+        { goalsList.map((goal, index) => {
+          return <GoalCard key={ index } goal={ goal } />
+        })}
         <hr />
         <ActionsCardsList data={links} />
       </div>
     )
   }
 }
-          // <FormGroup tag="fieldset">
-            // <CheckboxList items={ goalsList } checkHandler={ this.toggleDone.bind(this) } checkProp='done'/>
-          // </FormGroup>
-          // { goals === undefined && <Loading /> }
-          // { goalsList !== undefined && Object.keys(goalsList).length === 0 && <Empty /> }
-          // { goalsList &&         }

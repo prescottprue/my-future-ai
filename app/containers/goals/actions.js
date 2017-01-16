@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
-import { Container, Row, Col, InputGroup, Input, InputGroupButton, Button } from 'reactstrap'
+import { InputGroup, Input, InputGroupButton, Button } from 'reactstrap'
 
 import PageHeading from '../../components/PageHeading'
 import SimpleList from '../../components/SimpleList'
@@ -39,18 +39,35 @@ export default class GoalActionsContainer extends React.Component {
   }
 
   render () {
+    let actionsFilters = [
+      function(item) { return item.done === true }
+    ]
+
+    let actionsSort = [
+      (o) => { return o.cdate }
+    ]
+
+    let sortOrder = [
+      "desc",
+    ]
+
     return (
-      <Container>
+      <div>
         <PageHeading image="list" sub="The list of steps you could take to achieve your goal.">List goal actions</PageHeading>
         <InputGroup className="mt-1">
           <Input style={{ padding: '.75rem 1.25rem' }} name="add" placeholder="I want to..." value={this.state.newAction} onChange={this.handleChange.bind(this)}/>
           <InputGroupButton onClick={ this.handleAdd.bind(this) }>Add</InputGroupButton>
         </InputGroup>
 
-        <SimpleList items={ this.props.actions }/>
+        <SimpleList
+          items={ this.props.actions }
+          filters={ actionsFilters }
+          sort={ actionsSort }
+          sortOrder={ sortOrder }
+        />
 
         <Link className="float-xs-right" to={ `/goals/${this.props.gid}` }><Button outline color="primary">Done</Button></Link>
-      </Container>
+      </div>
     )
   }
 }

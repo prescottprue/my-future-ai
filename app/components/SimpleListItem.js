@@ -13,6 +13,9 @@ const dragSource = {
   beginDrag(props) {
     return props
   },
+  canDrag(props) {
+    return props.item.actions
+  },
   endDrag(props, monitor) {
     if (typeof props.dndActions.endDrag === 'function') { props.dndActions.endDrag(props.item, monitor.getDropResult()) }
     return props
@@ -45,12 +48,16 @@ export default class SimpleList extends React.Component {
   render () {
     const { connectDragSource, connectDropTarget, item, actions } = this.props
 
+    let style = {
+      paddingRight: (actions) ? actions.length * 45 + 10 : 15
+    }
+
     return connectDropTarget(connectDragSource(
-      <li className="list-group-item" key={ item.key }>
+      <li className="list-group-item" key={ item.key } style={ style }>
         { item.priority && <Badge className="mr-3">{ item.priority }</Badge> }
         { item.text }
         { actions && actions.map((action, index) => {
-          return <ListAction key={ index } action={ action.func.bind(this, item) } image={ action.image } position={ this.props.actions.length - index - 1 }/>
+          return <ListAction key={ index } action={ action.func.bind(this, item) } image={ action.image } position={ actions.length - index - 1 }/>
         })}
       </li>
     ))

@@ -28,7 +28,7 @@ button {
   margin-right: -$container-padding;
 
   li.list-group-item {
-    padding: $padding-vertical 100px $padding-vertical $container-padding;
+    padding: $padding-vertical $container-padding $padding-vertical $container-padding;
   }
 
   @media (max-width: 575px) {
