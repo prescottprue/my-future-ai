@@ -1,7 +1,8 @@
 import React from 'react'
 import { Alert } from 'reactstrap'
 import { DragDropContext } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
+// import HTML5Backend from 'react-dnd-html5-backend'
+import { default as TouchBackend } from 'react-dnd-touch-backend'
 
 require('../styles.scss')
 import AuthContainer from '../containers/AuthContainer'
@@ -10,7 +11,8 @@ import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 @connect(({ firebase }) => ({ auth: helpers.pathToJS(firebase, 'auth') }))
 @firebaseConnect((props) => ([]))
-@DragDropContext(HTML5Backend)
+// @DragDropContext(HTML5Backend)
+@DragDropContext(TouchBackend({ enableMouseEvents: true }))
 export default class MainContainer extends React.Component {
   updateUser () {
     const { firebase, auth } = this.props

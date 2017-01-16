@@ -6,6 +6,7 @@ import Empty from './Empty'
 import FirebaseHelper from '../utils/FirebaseHelper'
 
 import SimpleListItem from './SimpleListItem'
+import CustomDragLayer from '../components/CustomDragLayer'
 
 export default class SimpleList extends React.Component {
 
@@ -36,9 +37,12 @@ export default class SimpleList extends React.Component {
     return (
       <Row className="my-3">
         <Col xs={12}>
+          <CustomDragLayer />
           <ListGroup className="simple-list">
             { items.data.map((item) => {
-              return <SimpleListItem key={ item.key } item={ item } actions={ actions } dndActions={ dndActions } />
+              return (
+                <SimpleListItem key={ item.key } item={ item } actions={ actions } dndActions={ dndActions } />
+              )
             }) }
           </ListGroup>
         </Col>

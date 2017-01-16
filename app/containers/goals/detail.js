@@ -83,6 +83,7 @@ export default class GoalContainer extends React.Component {
   }
 
   endDragAction (draggedItem, dropTarget) {
+    if (dropTarget === null || draggedItem.key === dropTarget.key) { return }
     let increase = ((dropTarget.priority > draggedItem.priority) || (dropTarget.priority === draggedItem.priority && dropTarget.cdate < draggedItem.cdate))
     let update = { priority: (increase) ? this.increasePriority(dropTarget) : this.reducePriority(dropTarget) }
 
