@@ -48,11 +48,9 @@ export default class ListGoalsContainer extends React.Component {
           <Input style={{ padding: '.75rem 1.25rem' }} name="add" placeholder="I want to..." value={this.state.newGoal} onChange={this.handleChange.bind(this)}/>
           <InputGroupButton onClick={ this.handleAdd.bind(this) }>Add</InputGroupButton>
         </InputGroup>
-        <Row className="mt-1">
-          <Col xs="12">
-            <SimpleList goals={ this.props.goals }/>
-          </Col>
-        </Row>
+
+        <SimpleList items={ this.props.goals }/>
+
         <DoneButton link={ (this.props.router.goBack) ? this.props.router.goBack : '/goals' } />
       </Container>
     )

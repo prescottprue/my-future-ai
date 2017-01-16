@@ -4,14 +4,18 @@ import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
 import { Container, Row, Col, InputGroup, Input, InputGroupButton, Button } from 'reactstrap'
 
+// Components
 import PageHeading from '../../components/PageHeading'
 import Loading from '../../components/Loading'
 import SimpleList from '../../components/SimpleList'
-import CheckboxList from '../../components/CheckboxList'
 import DateTime from '../../components/DateTime'
 import ActionModal from '../../components/ActionModal'
 
+// Helpers
 import DatabaseHelper from '../../utils/DatabaseHelper'
+
+// Actions
+import { updateAction } from '../../actions/FirebaseActions'
 
 @connect((state, props) => {
   const uid = helpers.pathToJS(state.firebase, 'auth').uid,
@@ -46,7 +50,7 @@ export default class GoalContainer extends React.Component {
   }
 
   actionDone (item) {
-    this.props.firebase.update(DatabaseHelper.getGoalAction(this.props.gid, item.key), {
+    updateAction(this.props.gid, item.key, {
       done: true,
       doneSet: this.props.firebase.database.ServerValue.TIMESTAMP
     })
@@ -62,12 +66,27 @@ export default class GoalContainer extends React.Component {
     editedAction.priority = parseInt(editedAction.priority)
     delete editedAction.key
 
-    this.props.firebase.update(DatabaseHelper.getGoalAction(this.props.gid, form.key), editedAction)
+    updateAction(this.props.gid, form.key, editedAction)
     this.toggle()
   }
 
   goalDone () {
     this.props.firebase.update(DatabaseHelper.getUsersSingleGoalPath(this.props.uid, this.props.gid), { done: true, doneSet: this.props.firebase.database.ServerValue.TIMESTAMP })
+  }
+
+  reducePriority(target) {
+    return (target.priority > 1) ? target.priority - 1 : 1
+  }
+
+  increasePriority(target) {
+    return (target.priority < 9) ? target.priority + 1 : 9
+  }
+
+  endDragAction (draggedItem, dropTarget) {
+    let increase = ((dropTarget.priority > draggedItem.priority) || (dropTarget.priority === draggedItem.priority && dropTarget.cdate < draggedItem.cdate))
+    let update = { priority: (increase) ? this.increasePriority(dropTarget) : this.reducePriority(dropTarget) }
+
+    updateAction(this.props.gid, draggedItem.key, update)
   }
 
   render () {
@@ -86,10 +105,13 @@ export default class GoalContainer extends React.Component {
     ]
 
     let actions = [
-      { type: 'DONE', func: this.actionDone.bind(this), image: 'verification-checkmark-symbol' },
-      { type: 'EDIT', func: this.toggle.bind(this), image: 'pencil-edit' }
-      // { type: 'DELETE', func: this.actionDelete.bind(this), image: 'trash-can-black-symbol' }
+      { func: this.actionDone.bind(this), image: 'verification-checkmark-symbol' },
+      { func: this.toggle.bind(this), image: 'pencil-edit' }
     ]
+
+    let dndActions = {
+      'endDrag': this.endDragAction.bind(this)
+    }
 
     if (this.props.goal === undefined) { return <Loading /> }
     return (
@@ -110,6 +132,7 @@ export default class GoalContainer extends React.Component {
               sortOrder={ sortOrder }
               filters={ actionsFilters }
               actions={ actions }
+              dndActions={ dndActions }
             />
           </div>
         }

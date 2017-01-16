@@ -33,7 +33,7 @@ export default class GoalActionsContainer extends React.Component {
       text: this.state.newAction,
       done: false,
       cdate: this.props.firebase.database.ServerValue.TIMESTAMP,
-      priority: 1
+      priority: 5
     })
     this.state.newAction = ''
   }
@@ -46,11 +46,9 @@ export default class GoalActionsContainer extends React.Component {
           <Input style={{ padding: '.75rem 1.25rem' }} name="add" placeholder="I want to..." value={this.state.newAction} onChange={this.handleChange.bind(this)}/>
           <InputGroupButton onClick={ this.handleAdd.bind(this) }>Add</InputGroupButton>
         </InputGroup>
-        <Row className="mt-1">
-          <Col xs="12">
-            <SimpleList goals={ this.props.actions }/>
-          </Col>
-        </Row>
+
+        <SimpleList items={ this.props.actions }/>
+
         <Link className="float-xs-right" to={ `/goals/${this.props.gid}` }><Button outline color="primary">Done</Button></Link>
       </Container>
     )
