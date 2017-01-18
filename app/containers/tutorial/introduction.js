@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { ButtonGroup, Button, Row, Col } from 'reactstrap'
+import { ButtonGroup, Button } from 'reactstrap'
 
 import JumbotronPage from '../../components/JumbotronPage'
 
@@ -15,15 +15,17 @@ export default class TutorialIntroduction extends React.Component {
           subtitle="... to the community of people mindful of their goals."
         >
           <ButtonGroup vertical className="mt-4">
-            <Button outline color="primary">Happy to be here!</Button>
-            <Button outline color="primary">Show me around</Button>
-            <Button outline color="primary">What can I do here?</Button>
+            <Button outline color="primary"><Link to="/tutorial/first">Happy to be here!</Link></Button>
+            <Button outline color="primary"><Link to="/tutorial/first">Show me around</Link></Button>
+            <Button outline color="primary"><Link to="/tutorial/first">What can I do here?</Link></Button>
           </ButtonGroup>
         </JumbotronPage>
         <p className="text-muted text-center">
+          <Link to="/" className="color-inherit">
           I've been here before...
           <br />
           ( skip introduction )
+          </Link>
         </p>
       </div>
     )

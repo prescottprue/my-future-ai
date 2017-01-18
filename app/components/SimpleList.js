@@ -22,6 +22,11 @@ export default class SimpleList extends React.Component {
     // dndActions: T.
   }
 
+  static defaultProps = {
+    sort: [ (o) => { return o.cdate } ],
+    sortOrder: [ "desc" ]
+  }
+
   render () {
     let { items, filters, sort, sortOrder, actions, dndActions } = this.props
 
@@ -32,7 +37,7 @@ export default class SimpleList extends React.Component {
     if (items.data.length === 1) { return <Empty /> }
 
     if (filters !== undefined) { filters.forEach((filter) => { items.filter(filter) }) }
-    if (sort !== undefined) { items.sort(sort, sortOrder) }
+    if (sort) { items.sort(sort, sortOrder) }
 
     return (
       <Row className="my-3">

@@ -5,7 +5,9 @@ import MainContainer from '../containers/MainContainer'
 import NavigationContainer from '../containers/NavigationContainer'
 
 // Tutorial
-import TutorialContainer from '../containers/tutorial/introduction'
+import TutorialWrapper from '../containers/tutorial/wrapper'
+import Introduction from '../containers/tutorial/introduction'
+import First from '../containers/tutorial/first'
 
 import TutorialConnectOthersContainer from '../containers/TutorialConnectOthersContainer'
 import TutorialConnectExpertsContainer from '../containers/TutorialConnectExpertsContainer'
@@ -30,7 +32,6 @@ import UsersContainer from '../containers/users/list'
 
 import RequestsContainer from '../containers/RequestsContainer'
 
-import TutorialWrapper from '../components/TutorialWrapper'
 import ConnectWrapper from '../components/ConnectWrapper'
 
 export default class Routes extends React.Component {
@@ -38,7 +39,11 @@ export default class Routes extends React.Component {
     return (
       <Router history={ browserHistory }>
         <Route path='/' component={ MainContainer }>
-          <Route path='tutorial' component={ TutorialContainer } />
+          <Route path='tutorial' component={ TutorialWrapper }>
+            <IndexRoute component={ Introduction } />
+            <Route path='first' component={ First } />
+
+          </Route>
           <Route component={ NavigationContainer }>
             <IndexRoute component={ DashboardContainer } />
             <Route path='goals'>
@@ -62,7 +67,7 @@ export default class Routes extends React.Component {
   }
 }
           // <Route component={ TutorialWrapper }>
-          //   <Route path='tutorial' component={ TutorialContainer } />
+          //   <Route path='tutorial' component={ Introduction } />
           //   <Route path='tutorial/goals' component={ TutorialGoalsContainer } />
           //   <Route path='tutorial/goals/list' component={ ListGoalsContainer } />
           //   <Route path='tutorial/goals/select' component={ SelectPrimaryGoalsContainer } />

@@ -14,6 +14,7 @@ const dragSource = {
     return props
   },
   canDrag(props) {
+    console.log(props);
     return props.item.actions
   },
   endDrag(props, monitor) {
