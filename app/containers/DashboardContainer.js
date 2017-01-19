@@ -63,7 +63,7 @@ export default class DashboardContainer extends React.Component {
     })
 
     return (
-      <div>
+      <div className="mb-3">
         <PageHeading image="flag" sub="This is a list of your primary goals, which haven't been completed. Yet.">Your goals</PageHeading>
         { goalsList.map((goal, index) => {
           return <GoalCard key={ index } goal={ goal } />

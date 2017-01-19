@@ -8,7 +8,19 @@ $icon-sm: 24px;
 
 $container-padding: 15px;
 
-$xs-media: 575px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+$container-sm: 540px;
+$container-md: 720px;
+$container-lg: 960px;
+$container-xl: 1140px;
+
+a[disabled] {
+  pointer-events: none;
+}
 
 .color-inherit {
   color: inherit;
@@ -26,15 +38,31 @@ $xs-media: 575px;
       right: -$container-padding;
     }
 
-    button {
-      background: white;
-      border: {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        radius: 0;
+    @media (min-width: $sm) {
+      width: ($container-sm / $container-md) * 100%;
+      margin: 0 auto;
+    }
+
+    @media (min-width: $md) {
+      width: ($container-sm / $container-lg) * 100%;
+    }
+
+    @media (min-width: $lg) {
+      width: ($container-sm / $container-xl) * 100%;
+    }
+
+    button, a {
+      @media (max-width: $sm - 1) {
+        border: {
+          left: 0;
+          right: 0;
+          radius: 0;
+        }
       }
 
+      border: {
+        bottom: 0;
+      }
 
       &:last-child {
         border-bottom: 1px solid;
@@ -57,7 +85,19 @@ ul {
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
-  padding: $padding-vertical $container-padding;
+
+
+  .row {
+    margin: 0;
+  }
+
+  .col-form-label {
+    padding: {
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
 }
 
 .simple-list {
@@ -66,9 +106,39 @@ ul {
 
   li.list-group-item {
     padding: $padding-vertical $container-padding $padding-vertical $container-padding;
+
+    label {
+      padding: $padding-vertical 0 $padding-vertical $container-padding;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .col-4 {
+      padding-right: 0;
+    }
+
+    &.form-item {
+      padding: 0
+    }
+
+    select {
+      padding: {
+        top: 10px;
+        bottom: 10px;
+      }
+      height: 44px !important;
+
+      border: {
+        radius: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
   }
 
-  @media (max-width: 575px) {
+  @media (max-width: $sm - 1) {
 
     li.list-group-item {
       border-right: 0;

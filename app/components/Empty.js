@@ -4,9 +4,9 @@ export default class Empty extends React.Component {
 
   render () {
     return (
-      <div>
+      <p className="my-3">
         Empty
-      </div>
+      </p>
     );
   }
 }

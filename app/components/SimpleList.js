@@ -6,6 +6,8 @@ import Empty from './Empty'
 import FirebaseHelper from '../utils/FirebaseHelper'
 
 import SimpleListItem from './SimpleListItem'
+import FormSelectItem from './lists/form'
+import FormTextareaItem from './lists/textarea-form'
 import CustomDragLayer from '../components/CustomDragLayer'
 
 export default class SimpleList extends React.Component {
@@ -19,6 +21,10 @@ export default class SimpleList extends React.Component {
       func: T.func.isRequired,
       image: T.string.isRequired
     })),
+    formItem: T.shape({
+      type: T.string.isRequired,
+      handleChange: T.func
+    })
     // dndActions: T.
   }
 
@@ -28,15 +34,16 @@ export default class SimpleList extends React.Component {
   }
 
   render () {
-    let { items, filters, sort, sortOrder, actions, dndActions } = this.props
+    let { items, filters, sort, sortOrder, actions, dndActions, formItem } = this.props
 
     if (items === undefined) { return <Loading /> }
 
     items = new FirebaseHelper(items)
 
-    if (items.data.length === 1) { return <Empty /> }
-
     if (filters !== undefined) { filters.forEach((filter) => { items.filter(filter) }) }
+
+    if (items.data.length === 0) { return <Empty /> }
+
     if (sort) { items.sort(sort, sortOrder) }
 
     return (
@@ -44,9 +51,22 @@ export default class SimpleList extends React.Component {
         <Col xs={12}>
           <CustomDragLayer />
           <ListGroup className="simple-list">
-            { items.data.map((item) => {
+            { items.data.map(item => {
+              if (formItem && formItem.type === "select") {
+                return <FormSelectItem key={ item.key } handleChange={ formItem.handleChange } item={ item }/>
+              }
+
+              if (formItem && formItem.type === "textarea") {
+                return <FormTextareaItem key={ item.key } handleChange={ formItem.handleChange } item={ item }/>
+              }
+
               return (
-                <SimpleListItem key={ item.key } item={ item } actions={ actions } dndActions={ dndActions } />
+                <SimpleListItem
+                  key={ item.key }
+                  item={ item }
+                  actions={ actions }
+                  dndActions={ dndActions }
+                />
               )
             }) }
           </ListGroup>

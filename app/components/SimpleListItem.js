@@ -1,5 +1,5 @@
 import React, { PropTypes as T } from 'react'
-import { Badge } from 'reactstrap'
+import { FormGroup, Input, Badge } from 'reactstrap'
 import { DragSource, DropTarget } from 'react-dnd'
 import { ItemTypes } from '../config/constants'
 
@@ -10,13 +10,8 @@ import ListAction from './ListAction'
 import { updateAction } from '../actions/FirebaseActions'
 
 const dragSource = {
-  beginDrag(props) {
-    return props
-  },
-  canDrag(props) {
-    console.log(props);
-    return props.item.actions
-  },
+  beginDrag(props) { return props },
+  canDrag(props) { return props.item.actions },
   endDrag(props, monitor) {
     if (typeof props.dndActions.endDrag === 'function') { props.dndActions.endDrag(props.item, monitor.getDropResult()) }
     return props

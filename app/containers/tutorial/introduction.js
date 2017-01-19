@@ -3,8 +3,19 @@ import { Link } from 'react-router'
 import { ButtonGroup, Button } from 'reactstrap'
 
 import JumbotronPage from '../../components/JumbotronPage'
+import ActionsGroup from '../../components/ActionsGroup'
 
 export default class TutorialIntroduction extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      actions: [
+        { link: "/tutorial/first", text: "Happy to be here!" },
+        // { link: "/tutorial/first", text: "Show me around" },
+        // { link: "/tutorial/first", text: "What can I do here?" },
+      ]
+    }
+  }
 
   render () {
     return (
@@ -13,13 +24,10 @@ export default class TutorialIntroduction extends React.Component {
           title="Welcome..."
           image="brightness"
           subtitle="... to the community of people mindful of their goals."
-        >
-          <ButtonGroup vertical className="mt-4">
-            <Button outline color="primary"><Link to="/tutorial/first">Happy to be here!</Link></Button>
-            <Button outline color="primary"><Link to="/tutorial/first">Show me around</Link></Button>
-            <Button outline color="primary"><Link to="/tutorial/first">What can I do here?</Link></Button>
-          </ButtonGroup>
-        </JumbotronPage>
+        />
+
+        <ActionsGroup actions={ this.state.actions } />
+
         <p className="text-muted text-center">
           <Link to="/" className="color-inherit">
           I've been here before...

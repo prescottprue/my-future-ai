@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
-import { Container, Row, Col, Collapse, InputGroup, Input, InputGroupButton, ButtonGroup, Button } from 'reactstrap'
+import { Collapse } from 'reactstrap'
 
 // Componenets
 import ListTool from '../../components/tools/list'
@@ -31,16 +31,15 @@ export default class TutorialFirstStep extends React.Component {
       collapse: true,
       actions: [
         { func: this.toggle.bind(this), text: "Let's do this!" },
-        { link: "/tutorial/first#", text: "Why should I do this? (not working yet)" },
-        { link: "/tutorial/first#", text: "Where's the science? (not working yet)" },
+        // { link: "/tutorial/first#", text: "Why should I do this? (not working yet)" },
+        // { link: "/tutorial/first#", text: "Where's the science? (not working yet)" },
       ]
     }
     this.toggle = this.toggle.bind(this);
   }
 
   toggle() {
-    this.state.actions.shift()
-    this.state.actions.unshift({ link: "/tutorial/first#", text: "Done" })
+    this.state.actions.splice(0, 1, { link: "/tutorial/second", text: "Go to Step 2" })
     this.setState({ ...this.state, collapse: !this.state.collapse });
   }
 
@@ -71,7 +70,7 @@ export default class TutorialFirstStep extends React.Component {
 
     return (
       <div>
-        <PageHeading image="edit" sub="Step 1" top>The List</PageHeading>
+        <PageHeading image="edit" sub="Step 1" top>List</PageHeading>
 
         <Collapse isOpen={ this.state.collapse }>
           <p>Start by making an inventory of your dreams, the things you want to have, do, be, and share.</p>
