@@ -1,19 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
-import { Container, Row, Col, Collapse, InputGroup, FormGroup, Label, Input, InputGroupButton, ButtonGroup, Button } from 'reactstrap'
 
 // Componenets
 import SimpleList from '../../components/SimpleList'
-import PageHeading from '../../components/PageHeading'
-import ActionsGroup from '../../components/ActionsGroup'
 
 // Helpers
 import DatabaseHelper from '../../utils/DatabaseHelper'
 
 // Actions
 import { updateGoal } from '../../actions/FirebaseActions'
+import { updateStep, updateHeading, updateActions } from '../../actions/TutorialActions'
 
 @connect((state, props) => {
   const uid = helpers.pathToJS(state.firebase, 'auth').uid
@@ -24,40 +21,38 @@ export default class TutorialThirdStep extends React.Component {
 
   constructor (props) {
     super(props)
-
     this.state = {
-      actions: [
-        // { func: this.toggle.bind(this), text: "Alrighty!" },
-        // { func: this.explanation.bind(this), text: "Why should I do this?" },
-        { link: '/tutorial/third', text: "Back to Step 3" },
-      ],
       filters: [
         function(item) { return item.primary === false }
       ],
+      formItem: { type: 'textarea', handleChange: this.onChange.bind(this), value: 'reasons' }
     }
-
   }
 
-  onChange (v, c) {
-    console.log(v, c)
+  componentWillMount () {
+    updateStep(4)
+    updateHeading("Reasons", "notebook")
+    updateActions(4)
   }
 
+  onChange (gid, value) {
+    let update = {}
+    update[this.state.formItem.value] = (value.length > 1) ? value : null
+    updateGoal(gid, update)
+  }
 
   render () {
 
 
     return (
       <div>
-        <PageHeading image="notebook" sub="Step 4" top>Reasons</PageHeading>
-
-        <p>Now write down why you absolutely will achieve them. Be clear and concise and positive. Tell yourself why you’re sure you can reach those outcomes, and why it’s important that you do.</p>
+        <p>Now write down why you absolutely will achieve your goals. Be clear and concise and positive. Tell yourself why you’re sure you can reach those outcomes, and why it’s important that you do.</p>
 
         <SimpleList
           items={ this.props.goals }
           filters={ this.state.filters }
-          formItem={{ type: 'textarea', handleChange: this.onChange.bind(this) }}
+          formItem={ this.state.formItem }
         />
-        <ActionsGroup actions={ this.state.actions } />
       </div>
     )
   }

@@ -114,6 +114,21 @@ ul {
       white-space: nowrap;
     }
 
+    .textarea-form-item-label {
+      padding-right: $container-padding;
+      margin-bottom: 0;
+    }
+
+    textarea {
+      min-height: 200px;
+
+      margin: {
+        left: $container-padding;
+        right: $container-padding;
+        bottom: $container-padding;
+      }
+    }
+
     .col-4 {
       padding-right: 0;
     }

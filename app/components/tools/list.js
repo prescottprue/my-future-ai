@@ -23,7 +23,7 @@ export default class ListGoalsContainer extends React.Component {
   render () {
     return (
       <div>
-        <InputGroup className="mt-1">
+        <InputGroup className="my-3">
           <Input style={{ padding: '.75rem 1.25rem' }} name="add" placeholder="I want to..." value={ this.state.newGoal } onChange={ this.handleChange.bind(this) }/>
           <InputGroupButton onClick={ this.handleAdd.bind(this) }>Add</InputGroupButton>
         </InputGroup>

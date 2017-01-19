@@ -57,7 +57,7 @@ export default class SimpleList extends React.Component {
               }
 
               if (formItem && formItem.type === "textarea") {
-                return <FormTextareaItem key={ item.key } handleChange={ formItem.handleChange } item={ item }/>
+                return <FormTextareaItem key={ item.key } handleChange={ formItem.handleChange } item={ item } value={ formItem.value }/>
               }
 
               return (

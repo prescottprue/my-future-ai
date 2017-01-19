@@ -4,7 +4,8 @@ import { FormGroup, Input } from 'reactstrap'
 export default class FormTextAreaItem extends React.Component {
 
   static propTypes = {
-    handleChange: T.func.isRequired
+    handleChange: T.func.isRequired,
+    value: T.string.isRequired
   }
 
   handleChange (e) {
@@ -12,13 +13,13 @@ export default class FormTextAreaItem extends React.Component {
   }
 
   render () {
-    const { item, handleChange } = this.props
+    const { item, handleChange, value } = this.props
 
     return (
       <li className="list-group-item form-item">
         <FormGroup row>
-          { item.text }
-          <Input type="textarea" name="describe-reasons" id="describe-reasons" onChange={ this.handleChange.bind(this) } value={ item.value } />
+          <label htmlFor="describe-reasons" className="textarea-form-item-label">{ item.text }</label>
+          <Input type="textarea" name="describe-reasons" id="describe-reasons" onChange={ this.handleChange.bind(this) } value={ item[value] } />
         </FormGroup>
       </li>
     )

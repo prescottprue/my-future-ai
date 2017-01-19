@@ -6,8 +6,6 @@ import { Container, Row, Col, Collapse, InputGroup, FormGroup, Label, Input, Inp
 
 // Componenets
 import SimpleList from '../../components/SimpleList'
-import PageHeading from '../../components/PageHeading'
-import ActionsGroup from '../../components/ActionsGroup'
 import ConfirmationModal from '../../components/ConfirmationModal'
 
 // Helpers
@@ -15,41 +13,41 @@ import DatabaseHelper from '../../utils/DatabaseHelper'
 
 // Actions
 import { updateGoal } from '../../actions/FirebaseActions'
+import { updateStep, updateHeading, updateActions } from '../../actions/TutorialActions'
 
 @connect((state, props) => {
   const uid = helpers.pathToJS(state.firebase, 'auth').uid
-  return ({ uid, goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)) })
+  return ({ uid, goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)), state: state.tutorial[2] })
 })
 @firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
-export default class TutorialSecondStep extends React.Component {
+export default class TutorialStepTwo extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {
-      explanation: false,
-      actions: [
-        { link: "/tutorial/third", text: "Go to Step 3" },
-        { func: this.explanation.bind(this), text: "Why should I do this?" },
-        { link: '/tutorial/first', text: "Back to Step 1" },
-        // { link: "/tutorial/second#", text: "Where's the science? (not working yet)" },
-      ]
-    }
+    this.state = { explanation: false }
+
   }
 
-  explanation() {
-    this.state.actions.splice(1, 1)
-    this.setState({ ...this.state, explanation: true })
+  componentWillMount () {
+    updateStep(2)
+    updateHeading("Timeframes", "calendar")
+    updateActions(2, [
+      { func: this.explanation.bind(this), text: "Why should I do this?" },
+    ])
   }
 
-  onChange(gid, timeframe) {
+  explanation () {
+    updateActions(2)
+    this.setState({ explanation: true })
+  }
+
+  onChange (gid, timeframe) {
     updateGoal(gid, { timeframe })
   }
 
   render () {
     return (
       <div>
-        <PageHeading image="calendar" sub="Step 2" top>Timeframes</PageHeading>
-
         <p>Go over the list you made, estimating when you expect to reach those outcomes.</p>
 
         <SimpleList
@@ -66,8 +64,6 @@ export default class TutorialSecondStep extends React.Component {
             Note how your list came out. Some people find that the list they made is dominated by things they want today. Others find their greatest dreams are far in the future, in some imagined period of total achievement and fulfillment. If all your goals are short term, you need to start taking a longer view of potential and possibility. If all your goals are long term, you need to first develop some steps that can lead you in the direction you expect to go. A journey of a thousand miles begins with a single step. It’s important to be aware of both the first steps and the final ones.
           </p>
         </Collapse>
-
-        <ActionsGroup actions={ this.state.actions } />
       </div>
     )
   }

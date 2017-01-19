@@ -10,7 +10,7 @@ export default class TutorialIntroduction extends React.Component {
     super(props)
     this.state = {
       actions: [
-        { link: "/tutorial/first", text: "Happy to be here!" },
+        { link: "/tutorial/step-1", text: "Happy to be here!" },
         // { link: "/tutorial/first", text: "Show me around" },
         // { link: "/tutorial/first", text: "What can I do here?" },
       ]
