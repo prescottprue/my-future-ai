@@ -1,11 +1,13 @@
 import React from 'react'
-import { Alert } from 'reactstrap'
+
 import { DragDropContext } from 'react-dnd'
 // import HTML5Backend from 'react-dnd-html5-backend'
 import { default as TouchBackend } from 'react-dnd-touch-backend'
 
 require('../styles.scss')
 import AuthContainer from '../containers/AuthContainer'
+import Loading from '../components/Loading'
+import MainWrapper from '../components/MainWrapper'
 
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
@@ -38,11 +40,23 @@ export default class MainContainer extends React.Component {
 
     switch(this.props.auth) {
       case undefined:
-        return <div>Loading...</div>
+        return (
+          <MainWrapper>
+            <Loading />
+          </MainWrapper>
+        )
       case null:
-        return <AuthContainer />
-      default:
-        return <div>{ this.props.children }</div>
+        return (
+          <MainWrapper>
+            <AuthContainer />
+          </MainWrapper>
+        )
     }
+
+    return (
+      <MainWrapper>
+        { this.props.children }
+      </MainWrapper>
+    )
   }
 }

@@ -24,8 +24,8 @@ export default class AuthContainer extends React.Component {
     return (
       <Container>
         <JumbotronPage
-          title="BANZAI.ai"
-          subtitle="Achieve your goals your way."
+          title="tGoals"
+          subtitle="Be smart about achieving your goals."
           image="target"
         />
         <Row className="text-xs-center">
