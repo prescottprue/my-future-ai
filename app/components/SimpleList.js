@@ -5,9 +5,8 @@ import Loading from './Loading'
 import Empty from './Empty'
 import FirebaseHelper from '../utils/FirebaseHelper'
 
-import SimpleListItem from './SimpleListItem'
+import SimpleListItem from './lists/simple-item'
 import FormSelectItem from './lists/form'
-import FormTextareaItem from './lists/textarea-form'
 import CustomDragLayer from '../components/CustomDragLayer'
 
 export default class SimpleList extends React.Component {
@@ -52,22 +51,8 @@ export default class SimpleList extends React.Component {
           <CustomDragLayer />
           <ListGroup className="simple-list">
             { items.data.map(item => {
-              if (formItem && formItem.type === "select") {
-                return <FormSelectItem key={ item.key } handleChange={ formItem.handleChange } item={ item }/>
-              }
-
-              if (formItem && formItem.type === "textarea") {
-                return <FormTextareaItem key={ item.key } handleChange={ formItem.handleChange } item={ item } value={ formItem.value }/>
-              }
-
-              return (
-                <SimpleListItem
-                  key={ item.key }
-                  item={ item }
-                  actions={ actions }
-                  dndActions={ dndActions }
-                />
-              )
+              if (formItem) { return <FormSelectItem key={ item.key } form={ formItem } item={ item }/> }
+              else { return <SimpleListItem key={ item.key } item={ item } actions={ actions } dndActions={ dndActions } /> }
             }) }
           </ListGroup>
         </Col>

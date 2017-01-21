@@ -25,12 +25,11 @@ export default class TutorialStepTwo extends React.Component {
   constructor (props) {
     super(props)
     this.state = { explanation: false }
-
   }
 
   componentWillMount () {
     updateStep(2)
-    updateHeading("Timeframes", "calendar")
+    updateHeading("Timeframes", "hourglass")
     updateActions(2, [
       { func: this.explanation.bind(this), text: "Why should I do this?" },
     ])
@@ -41,10 +40,6 @@ export default class TutorialStepTwo extends React.Component {
     this.setState({ explanation: true })
   }
 
-  onChange (gid, timeframe) {
-    updateGoal(gid, { timeframe })
-  }
-
   render () {
     return (
       <div>
@@ -52,7 +47,7 @@ export default class TutorialStepTwo extends React.Component {
 
         <SimpleList
           items={ this.props.goals }
-          formItem={{ type: "select", handleChange: this.onChange.bind(this) }}
+          formItem={{ type: "select", value: 'timeframe' }}
         />
 
         <Collapse isOpen={ this.state.explanation }>

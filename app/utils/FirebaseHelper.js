@@ -17,6 +17,12 @@ export default class FirebaseHelper {
     return this
   }
 
+  primaryGoals () {
+    _.remove(this.data, (goal) => { return goal.primary === false })
+
+    return this
+  }
+
   sort (func, order) {
     if (func.constructor === Array) {
       this.data = _.orderBy(this.data, func, order)

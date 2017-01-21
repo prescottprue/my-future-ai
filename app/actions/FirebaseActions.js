@@ -25,3 +25,8 @@ export function addGoal(text) {
 
   getFirebase().push(DatabaseHelper.getUserGoalsPath(uid), goal)
 }
+
+export function updateTutorial(tutorial) {
+  const uid = getFirebase().auth().currentUser.uid
+  getFirebase().update(`/users/${uid}/tutorial`, tutorial)
+}

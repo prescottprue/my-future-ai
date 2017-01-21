@@ -2,8 +2,6 @@ import React, { PropTypes as T } from 'react'
 import { Link } from 'react-router'
 import { Container, Button, Row, Col, Card, CardBlock, CardImg, CardTitle, CardSubtitle, CardText, InputGroup, Input, InputGroupButton } from 'reactstrap'
 
-import PageHeading from '../components/PageHeading'
-
 export default class UserCard extends React.Component {
   static propTypes = {
     profile: T.shape({

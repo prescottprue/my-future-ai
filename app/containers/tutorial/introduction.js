@@ -1,20 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { ButtonGroup, Button } from 'reactstrap'
 
 import JumbotronPage from '../../components/JumbotronPage'
 import ActionsGroup from '../../components/ActionsGroup'
 
+// Actions
+import { updateStep, updateHeading, updateActions } from '../../actions/TutorialActions'
+
 export default class TutorialIntroduction extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      actions: [
-        { link: "/tutorial/step-1", text: "Happy to be here!" },
-        // { link: "/tutorial/first", text: "Show me around" },
-        // { link: "/tutorial/first", text: "What can I do here?" },
-      ]
-    }
+  componentWillMount () {
+    updateStep(0)
+    updateHeading("", "")
+    updateActions(0)
   }
 
   render () {
@@ -25,16 +22,6 @@ export default class TutorialIntroduction extends React.Component {
           image="brightness"
           subtitle="... to the community of people mindful of their goals."
         />
-
-        <ActionsGroup actions={ this.state.actions } />
-
-        <p className="text-muted text-center">
-          <Link to="/" className="color-inherit">
-          I've been here before...
-          <br />
-          ( skip introduction )
-          </Link>
-        </p>
       </div>
     )
   }

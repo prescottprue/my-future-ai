@@ -12,6 +12,9 @@ class DatabaseHelper {
   getGoalAction (goalId, actionId) {
     return `goals_actions/${goalId}/${actionId}`
   }
+  getUserProfile (userId) {
+    return `users/${userId}`
+  }
 }
 
 export default new DatabaseHelper()

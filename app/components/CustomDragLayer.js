@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ItemTypes from '../config/constants';
 import { DragLayer } from 'react-dnd';
-import SimpleListItem from '../components/SimpleListItem'
+import SimpleListItem from '../components/lists/simple-item'
 
 const layerStyles = {
   position: 'fixed',

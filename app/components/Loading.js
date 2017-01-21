@@ -4,8 +4,10 @@ export default class Loading extends React.Component {
 
   render () {
     return (
-      <div>
-        Loading
+      <div className="text-center">
+        <div className="loader">
+          Loading...
+        </div>
       </div>
     );
   }

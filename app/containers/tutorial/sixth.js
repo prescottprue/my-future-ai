@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { firebaseConnect, helpers } from 'react-redux-firebase'
-import { Container, Row, Col, Collapse, InputGroup, FormGroup, Label, Input, InputGroupButton, ButtonGroup, Button } from 'reactstrap'
 
 // Componenets
 import SimpleList from '../../components/SimpleList'
@@ -27,13 +26,13 @@ export default class TutorialStepSix extends React.Component {
       filters: [
         function(item) { return item.primary === false }
       ],
-      formItem: { type: 'textarea', handleChange: this.onChange.bind(this), value: 'outcome' }
+      formItem: { type: 'date', handleChange: this.onChange.bind(this), value: 'deadline' }
     }
   }
 
   componentWillMount () {
     updateStep(6)
-    updateHeading("???", "bookmark")
+    updateHeading("Deadlines", "calendar")
     updateActions(6)
   }
 
@@ -46,7 +45,7 @@ export default class TutorialStepSix extends React.Component {
   render () {
     return (
       <div>
-        <p>Describe the outcomes of your goals in sensory terms. How do your outcomes look, sound, feel and smell? Engage all of your senses in describing the results you want. Be as specific as possible.</p>
+        <p>Set a date when you plan to achieve your goal.</p>
 
         <SimpleList
           items={ this.props.goals }

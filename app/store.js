@@ -7,7 +7,7 @@ import reducer from './reducers'
 const middleware = applyMiddleware(logger({ collapsed: true }))
 
 // Firebase config
-const config = {
+const fbConfig = {
   apiKey: "AIzaSyBFg96siHdoFLYzpEx7j_uVPIUCtXI3twk",
   authDomain: "dreams-center.firebaseapp.com",
   databaseURL: "https://dreams-center.firebaseio.com",
@@ -15,9 +15,14 @@ const config = {
   messagingSenderId: "854775952132"
 }
 
+const config = {
+  userProfile: 'users',
+  updateProfileOnLogin: true
+}
+
 // Add redux Firebase to compose
 const createStoreWithFirebase = compose(
-  reactReduxFirebase(config, { userProfile: 'users' }),
+  reactReduxFirebase(fbConfig, config),
 )(createStore)
 
 // Create store with reducers

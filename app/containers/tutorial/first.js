@@ -65,6 +65,9 @@ export default class TutorialStepOne extends React.Component {
           <li>Spend at least <b>10 to 15 minutes</b>.</li>
           <li>Skip the "how can I do this?" part.</li>
           <li><b>Abbreviate</b> whenever possible.</li>
+          <li>State your outcome in positive terms.</li>
+          <li>Your outcome must be initiated and maintained by you.</li>
+          <li>Your outcome must be one that benefits you and other people.</li>
         </ul>
 
         <ConfirmationModal isOpen={ this.state.modal } danger={ this.actionDelete.bind(this) } toggle={ this.toggleModal.bind(this) }>

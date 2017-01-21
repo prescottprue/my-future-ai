@@ -13,6 +13,8 @@ import Third from '../containers/tutorial/third'
 import Fourth from '../containers/tutorial/fourth'
 import Fifth from '../containers/tutorial/fifth'
 import Sixth from '../containers/tutorial/sixth'
+import Step7 from '../containers/tutorial/step-7'
+import Step8 from '../containers/tutorial/step-8'
 
 import TutorialConnectOthersContainer from '../containers/TutorialConnectOthersContainer'
 import TutorialConnectExpertsContainer from '../containers/TutorialConnectExpertsContainer'
@@ -52,6 +54,8 @@ export default class Routes extends React.Component {
             <Route path='step-4' component={ Fourth } />
             <Route path='step-5' component={ Fifth } />
             <Route path='step-6' component={ Sixth } />
+            <Route path='step-7' component={ Step7 } />
+            <Route path='step-8' component={ Step8 } />
           </Route>
           <Route component={ NavigationContainer }>
             <IndexRoute component={ DashboardContainer } />
