@@ -20,10 +20,12 @@ const { pathToJS, dataToJS, isLoaded, isEmpty } = helpers
 
   return ({
     uid: uid,
-    goals: dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)),
+    goals: dataToJS(state.firebase, 'goals'),
   })
 })
-@firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
+@firebaseConnect((props) => {
+  return [ DatabaseHelper.getUserGoalsPath(props.uid) ]
+})
 export default class DashboardContainer extends React.Component {
   toggleDone (id, status) {
     this.props.firebase.update(DatabaseHelper.getUsersSingleGoalPath(this.props.uid, id), { done: !status })

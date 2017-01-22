@@ -1,29 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { firebaseConnect, helpers } from 'react-redux-firebase'
 import { Collapse } from 'reactstrap'
 
-// Componenets
 import SimpleList from '../../components/SimpleList'
 
-// Helpers
-import DatabaseHelper from '../../utils/DatabaseHelper'
-
-// Actions
 import { updateGoal } from '../../actions/FirebaseActions'
 import { updateStep, updateHeading, updateActions, disableNext, enableNext } from '../../actions/TutorialActions'
 
-@connect((state, props) => {
-  const uid = helpers.pathToJS(state.firebase, 'auth').uid
-  return ({ uid, goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)), nextState: state.tutorial.actions[0] })
-})
-@firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
+@connect((state, props) => ({ nextState: state.tutorial.actions[0] }))
 export default class TutorialStep3 extends React.Component {
-
   constructor (props) {
     super(props)
-
-    let count = _.countBy(props.goals, goal => { return goal.primary })
 
     this.state = {
       explanation: false,

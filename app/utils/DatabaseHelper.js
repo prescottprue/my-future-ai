@@ -1,17 +1,24 @@
 class DatabaseHelper {
-  getUsersSingleGoalPath (userId, goalId) {
-    return `users-goals/${userId}/${goalId}`
+  getUsersSingleGoalPath (goalId) {
+    return `goals/${goalId}`
   }
+
+  getGoals () {
+    return `goals`
+  }
+
   getUserGoalsPath (userId) {
-    return `users-goals/${userId}`
+    return `goals#orderByChild=uid&equalTo=${userId}`
   }
 
   getGoalActions (goalId) {
-    return `goals_actions/${goalId}`
+    return `actions#orderByChild=gid&equalTo=${goalId}`
   }
+
   getGoalAction (goalId, actionId) {
-    return `goals_actions/${goalId}/${actionId}`
+    return `actions/${actionId}`
   }
+
   getUserProfile (userId) {
     return `users/${userId}`
   }

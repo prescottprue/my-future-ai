@@ -22,7 +22,7 @@ export default class FormListItem extends React.Component {
       handleChange(this.props.item.key, formValue)
     } else {
       let update = {}
-      update[value] = (formValue.length > 1) ? formValue : null
+      update[value] = (formValue !== "") ? formValue : null
       updateGoal(this.props.item.key, update)
     }
   }

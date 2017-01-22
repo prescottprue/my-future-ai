@@ -1,26 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { firebaseConnect, helpers } from 'react-redux-firebase'
-import { Container, Row, Col, Collapse, InputGroup, FormGroup, Label, Input, InputGroupButton, ButtonGroup, Button } from 'reactstrap'
+import { Collapse } from 'reactstrap'
 
-// Componenets
 import SimpleList from '../../components/SimpleList'
-import ConfirmationModal from '../../components/ConfirmationModal'
 
-// Helpers
-import DatabaseHelper from '../../utils/DatabaseHelper'
-
-// Actions
-import { updateGoal } from '../../actions/FirebaseActions'
 import { updateStep, updateHeading, updateActions } from '../../actions/TutorialActions'
 
-@connect((state, props) => {
-  const uid = helpers.pathToJS(state.firebase, 'auth').uid
-  return ({ uid, goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)), state: state.tutorial[2] })
-})
-@firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
-export default class TutorialStepTwo extends React.Component {
+@connect((state) => ({ state: state.tutorial[2] }))
+export default class TutorialStep2 extends React.Component {
 
   constructor (props) {
     super(props)

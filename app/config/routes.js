@@ -8,7 +8,7 @@ import NavigationContainer from '../containers/NavigationContainer'
 import TutorialWrapper from '../containers/tutorial/wrapper'
 import Introduction from '../containers/tutorial/introduction'
 import First from '../containers/tutorial/first'
-import Second from '../containers/tutorial/second'
+import Step2 from '../containers/tutorial/step-2'
 import Third from '../containers/tutorial/third'
 import Fourth from '../containers/tutorial/fourth'
 import Fifth from '../containers/tutorial/fifth'
@@ -49,7 +49,7 @@ export default class Routes extends React.Component {
           <Route path='tutorial' component={ TutorialWrapper }>
             <IndexRoute component={ Introduction } />
             <Route path='step-1' component={ First } />
-            <Route path='step-2' component={ Second } />
+            <Route path='step-2' component={ Step2 } />
             <Route path='step-3' component={ Third } />
             <Route path='step-4' component={ Fourth } />
             <Route path='step-5' component={ Fifth } />

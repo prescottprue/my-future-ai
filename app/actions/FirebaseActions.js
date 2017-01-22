@@ -1,16 +1,15 @@
 import { helpers, getFirebase } from 'react-redux-firebase'
 import store from '../store'
 
-import DatabaseHelper from '../utils/DatabaseHelper'
+import DH from '../utils/DatabaseHelper'
 
 
 export function updateAction(gid, aid, action) {
-  getFirebase().update(DatabaseHelper.getGoalAction(gid, aid), action)
+  getFirebase().update(DH.getGoalAction(gid, aid), action)
 }
 
 export function updateGoal(gid, update) {
-  const uid = getFirebase().auth().currentUser.uid
-  getFirebase().update(DatabaseHelper.getUsersSingleGoalPath(uid, gid), update)
+  getFirebase().update(DH.getUsersSingleGoalPath(gid), update)
 }
 
 export function addGoal(text) {
@@ -20,10 +19,15 @@ export function addGoal(text) {
           text,
           done: false,
           primary: false,
-          cdate: timestamp
+          cdate: timestamp,
+          uid
         }
 
-  getFirebase().push(DatabaseHelper.getUserGoalsPath(uid), goal)
+  getFirebase().push(DH.getGoals(), goal)
+}
+
+export function deleteGoal(gid) {
+  getFirebase().remove(DH.getUsersSingleGoalPath(gid))
 }
 
 export function updateTutorial(tutorial) {

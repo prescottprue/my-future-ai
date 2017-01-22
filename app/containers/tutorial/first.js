@@ -1,27 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { firebaseConnect, helpers } from 'react-redux-firebase'
 
 // Components
 import ListTool from '../../components/tools/list'
 import SimpleList from '../../components/SimpleList'
 import ConfirmationModal from '../../components/ConfirmationModal'
 
-import { addGoal } from '../../actions/FirebaseActions'
+import { addGoal, deleteGoal } from '../../actions/FirebaseActions'
 import { updateStep, updateHeading, updateActions } from '../../actions/TutorialActions'
 
-// Helpers
-import DatabaseHelper from '../../utils/DatabaseHelper'
-
-@connect((state, props) => {
-  const uid = helpers.pathToJS(state.firebase, 'auth').uid
-
-  return ({
-    uid: uid,
-    goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)),
-  })
-})
-@firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
 export default class TutorialStepOne extends React.Component {
 
   constructor (props) {
@@ -40,7 +26,7 @@ export default class TutorialStepOne extends React.Component {
   }
 
   actionDelete () {
-    this.props.firebase.remove(DatabaseHelper.getUsersSingleGoalPath(this.props.uid, this.state.item.key))
+    deleteGoal(this.state.item.key)
     this.toggleModal()
   }
 
