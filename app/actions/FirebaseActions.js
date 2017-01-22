@@ -34,3 +34,8 @@ export function updateTutorial(tutorial) {
   const uid = getFirebase().auth().currentUser.uid
   getFirebase().update(`/users/${uid}/tutorial`, tutorial)
 }
+
+export function batchUpdateTutorial(updatesBatch) {
+  const uid = getFirebase().auth().currentUser.uid
+  getFirebase().database().ref(`/users/${uid}/tutorial`).update(updatesBatch);
+}

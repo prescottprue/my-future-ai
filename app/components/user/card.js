@@ -11,36 +11,45 @@ import Loading from '../../components/Loading'
 import CardGoals from './card-goals'
 import CardOnline from './card-online'
 
-@connect((state, props) => {
-  return ({
-    profile: dataToJS(state.firebase, DH.getUserProfile(props.uid)),
-    goals: dataToJS(state.firebase, DH.getUserGoalsPath(props.uid)),
-  })
-})
-@firebaseConnect((props) => ([
-  { type: 'once', path: DH.getUserProfile(props.uid) },
-  { type: 'once', path: DH.getUserGoalsPath(props.uid) },
-]))
+@firebaseConnect((props) => ([]))
 export default class UserCard extends React.Component {
   static propTypes = {
     uid: T.string.isRequired
   }
 
-  render () {
-    const { profile, goals } = this.props
+  constructor (props) {
+    super(props)
+    this.state = { profile: undefined, goals: undefined }
+  }
 
-    if (profile === undefined) {
+  componentWillReceiveProps (props) {
+    props.firebase.ref(`users/${props.uid}`).once('value').then(ss => {
+      console.log(ss.val());
+      this.setState({ ...this.state, profile: ss.val() })
+    })
+
+    props.firebase.ref('goals').orderByChild('uid').equalTo(props.uid).once('value').then(ss => {
+      console.log(ss.val());
+      this.setState({ ...this.state, goals: ss.val() })
+    })
+  }
+
+  render () {
+    const { firebase, uid } = this.props
+
+console.log(this.state);
+    if (this.state.profile === undefined) {
       return <Loading />
     }
 
     return (
-      <Card>
-        <CardImg top src={ profile.avatarUrl } alt={ profile.displayName + ' profile image'} />
+      <Card className="my-3">
+        <CardImg top src={ this.state.profile.avatarUrl } alt={ this.state.profile.displayName + ' profile image'} />
         <CardBlock>
-          <CardTitle>{ profile.displayName }</CardTitle>
-          <CardOnline online={ profile.online } lastSeen={ profile.lastSeen } />
+          <CardTitle>{ this.state.profile.displayName }</CardTitle>
+          <CardOnline online={ this.state.profile.online } lastSeen={ this.state.profile.lastSeen } />
         </CardBlock>
-        <CardGoals goals={ goals } />
+        <CardGoals goals={ this.state.goals } />
       </Card>
     )
   }

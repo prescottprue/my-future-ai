@@ -1,11 +1,21 @@
 import store from '../store'
+import { updateTutorial, batchUpdateTutorial } from './FirebaseActions'
 
 export function updateHeading(title, image) {
   store.dispatch({ type: 'UPDATE_HEADING', payload: { title, image } })
 }
 
-export function updateStep(currentStep, tutorial) {
+export function updateStep(currentStep) {
+  let update = { currentStep }
+
+  let updates = {}
+  updates['/currentStep'] = currentStep
+  updates[`/${currentStep}/started`] = true
+  updates[`/${currentStep - 1}/completed`] = true
+
   store.dispatch({ type: 'UPDATE_STEP', payload: { currentStep } })
+
+  batchUpdateTutorial(updates)
 }
 
 export function updateActions(currentStep, additionalActions) {
@@ -35,7 +45,11 @@ export function getPartner() {
   store.dispatch({ type: 'GET_PARTNER' })
 }
 
-export function toggleCollapse() {
+export function toggleCollapse(step, showCollapse) {
+  let updates = {}
+  updates[`/${step}/showCollapse`] = showCollapse
+  batchUpdateTutorial(updates)
+
   store.dispatch({ type: 'TOGGLE_COLLAPSE' })
 }
 

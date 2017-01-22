@@ -5,6 +5,7 @@ import { ItemTypes } from '../../config/constants'
 
 // Components
 import ListAction from '../ListAction'
+import UserItem from './user'
 
 // Actions
 import { updateAction } from '../../actions/FirebaseActions'
@@ -52,9 +53,12 @@ export default class SimpleListItem extends React.Component {
       <li className="list-group-item" key={ item.key } style={ style }>
         { item.priority && <Badge className="mr-3">{ item.priority }</Badge> }
         <span>{ item.text }</span>
-        { actions && actions.map((action, index) => {
+        { actions && ! item.partner && actions.map((action, index) => {
           return <ListAction key={ index } action={ action.func.bind(this, item) } image={ action.image } position={ actions.length - index - 1 }/>
         })}
+        { this.props.showPartner && item.partner &&
+          <UserItem profile={ item.partner } />
+        }
       </li>
     ))
   }

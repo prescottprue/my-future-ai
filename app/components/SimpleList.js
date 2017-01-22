@@ -23,7 +23,8 @@ export default class SimpleList extends React.Component {
     formItem: T.shape({
       type: T.string.isRequired,
       handleChange: T.func
-    })
+    }),
+    showPartner: T.bool
     // dndActions: T.
   }
 
@@ -52,7 +53,7 @@ export default class SimpleList extends React.Component {
           <ListGroup className="simple-list">
             { items.data.map(item => {
               if (formItem) { return <FormSelectItem key={ item.key } form={ formItem } item={ item }/> }
-              else { return <SimpleListItem key={ item.key } item={ item } actions={ actions } dndActions={ dndActions } /> }
+              else { return <SimpleListItem key={ item.key } item={ item } actions={ actions } dndActions={ dndActions } showPartner={ this.props.showPartner } /> }
             }) }
           </ListGroup>
         </Col>

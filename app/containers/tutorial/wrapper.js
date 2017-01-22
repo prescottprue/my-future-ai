@@ -13,38 +13,26 @@ import { updateTutorial } from '../../actions/FirebaseActions'
 import DH from '../../utils/DatabaseHelper'
 
 // Connections
-@connect(state => ({
+@connect((state, props) => ({
   heading: state.tutorial.heading,
   actions: state.tutorial.actions,
   auth: helpers.pathToJS(state.firebase, 'auth'),
   goals: helpers.dataToJS(state.firebase, 'goals'),
-  tutorial: state.tutorial
+  tutorial: helpers.dataToJS(state.firebase, `users/${helpers.pathToJS(state.firebase, 'auth').uid}/tutorial`, {})
 }))
-@firebaseConnect((props) => ([ DH.getUserGoalsPath(props.auth.uid) ]))
+@firebaseConnect((props) => ([
+  { path: '/goals', queryParams: [ 'orderByChild=uid', `equalTo=${ props.auth.uid }` ], populates: [{ child: 'partner', root: 'users' }] },
+  `users/${props.auth.uid}/tutorial`
+]))
 
 
 // Class
 export default class TutorialWrapper extends React.Component {
-  constructor(props) {
-    super(props)
-    const { firebase, auth } = props
-    firebase.ref(`/users/${auth.uid}/tutorial`).once('value').then((snapshot) => {
-      restoreTutorialProgress(snapshot.val())
-    })
-  }
-  componentDidUpdate() {
-    if (this.props.tutorial.restored) {
-      updateTutorial(this.props.tutorial.progress)
-    }
-  }
-
   render () {
-    const { heading, actions, goals } = this.props
+    const { heading, actions, goals, tutorial } = this.props
 
     let children = React.Children.map(this.props.children, function (child) {
-      return React.cloneElement(child, {
-        goals: goals
-      })
+      return React.cloneElement(child, { goals, tutorial })
     })
 
     return (
