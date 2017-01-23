@@ -49,10 +49,18 @@ export default class SimpleListItem extends React.Component {
       paddingRight: (actions) ? actions.length * 45 + 10 : 15
     }
 
+    let textStyle
+
+    if (item.priority) {
+      textStyle = { width: '90%' }
+    } else {
+      textStyle = { width: '100%' }
+    }
+
     return connectDropTarget(connectDragSource(
       <li className="list-group-item" key={ item.key } style={ style }>
-        { item.priority && <Badge className="mr-3">{ item.priority }</Badge> }
-        <span>{ item.text }</span>
+        { item.priority && <Badge style={{ width: '8%', marginRight: '2%' }}>{ item.priority }</Badge> }
+        <span style={ textStyle }>{ item.text }</span>
         { actions && ! item.partner && actions.map((action, index) => {
           return <ListAction key={ index } action={ action.func.bind(this, item) } image={ action.image } position={ actions.length - index - 1 }/>
         })}

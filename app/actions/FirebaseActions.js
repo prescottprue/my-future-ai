@@ -23,7 +23,7 @@ export function addGoal(text) {
           uid
         }
 
-  getFirebase().push(DH.getGoals(), goal)
+  getFirebase().push(`/goals`, goal)
 }
 
 export function deleteGoal(gid) {

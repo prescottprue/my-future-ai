@@ -25,13 +25,13 @@ import { updateAction } from '../../actions/FirebaseActions'
   return ({
     uid,
     gid,
-    goal: helpers.dataToJS(state.firebase, DatabaseHelper.getUsersSingleGoalPath(uid, gid)),
-    actions: helpers.dataToJS(state.firebase, DatabaseHelper.getGoalActions(gid))
+    goal: helpers.dataToJS(state.firebase, DatabaseHelper.getUsersSingleGoalPath(gid)),
+    actions: helpers.dataToJS(state.firebase, 'actions')
   })
 })
 
 @firebaseConnect((props) => ([
-  DatabaseHelper.getUsersSingleGoalPath(props.uid, props.gid),
+  DatabaseHelper.getUsersSingleGoalPath(props.gid),
   DatabaseHelper.getGoalActions(props.gid)
 ]))
 

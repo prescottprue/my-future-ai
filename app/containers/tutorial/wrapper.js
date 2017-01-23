@@ -12,18 +12,19 @@ import { updateTutorial } from '../../actions/FirebaseActions'
 
 import DH from '../../utils/DatabaseHelper'
 
-// Connections
 @connect((state, props) => ({
   heading: state.tutorial.heading,
   actions: state.tutorial.actions,
   auth: helpers.pathToJS(state.firebase, 'auth'),
-  goals: helpers.dataToJS(state.firebase, 'goals'),
-  tutorial: helpers.dataToJS(state.firebase, `users/${helpers.pathToJS(state.firebase, 'auth').uid}/tutorial`, {})
 }))
 @firebaseConnect((props) => ([
-  { path: '/goals', queryParams: [ 'orderByChild=uid', `equalTo=${ props.auth.uid }` ], populates: [{ child: 'partner', root: 'users' }] },
+  { path: '/goals', queryParams: [ 'orderByChild=uid', `equalTo=${ props.auth.uid ? props.auth.uid : '' }` ], populates: [{ child: 'partner', root: 'users' }] },
   `users/${props.auth.uid}/tutorial`
 ]))
+@connect(({ firebase }, props) => ({
+  goals: helpers.dataToJS(firebase, 'goals'),
+  tutorial: helpers.dataToJS(firebase, `users/${ props.auth.uid }/tutorial`, {})
+}))
 
 
 // Class

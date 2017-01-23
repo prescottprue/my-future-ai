@@ -9,16 +9,19 @@ import SimpleList from '../../components/SimpleList'
 import DoneButton from '../../components/DoneButton'
 
 import DatabaseHelper from '../../utils/DatabaseHelper'
+import { addGoal } from '../../actions/FirebaseActions'
 
 @connect((state, props) => {
   const uid = helpers.pathToJS(state.firebase, 'auth').uid
 
   return ({
     uid: uid,
-    goals: helpers.dataToJS(state.firebase, DatabaseHelper.getUserGoalsPath(uid)),
+    goals: helpers.dataToJS(state.firebase, 'goals'),
   })
 })
-@firebaseConnect((props) => ([ DatabaseHelper.getUserGoalsPath(props.uid) ]))
+@firebaseConnect((props) => ([
+  `/goals/${props.uid}`
+]))
 export default class ListGoalsContainer extends React.Component {
   constructor (props) {
     super(props);
@@ -31,16 +34,13 @@ export default class ListGoalsContainer extends React.Component {
 
   handleAdd () {
     // Add a new todo to firebase
-    this.props.firebase.push(DatabaseHelper.getUserGoalsPath(this.props.uid), {
-      text: this.state.newGoal,
-      done: false,
-      primary: false,
-      cdate: this.props.firebase.database.ServerValue.TIMESTAMP
-    })
+    addGoal(this.state.newGoal)
+    
     this.state.newGoal = ''
   }
 
   render () {
+    console.log(this.props.goals);
     return (
       <Container>
         <PageHeading image="edit" sub="This is a list of your dreams, wishes and goals.">List your goals</PageHeading>
